@@ -1,0 +1,1486 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>P3後半 ブラックホール練習 v65</title>
+<style>
+:root{--bg:#0f1724;--panel:#182235;--ink:#e5edf7;--muted:#9fb0c7;--line:#334155;--accent:#725cff;--ok:#22a06b;--bad:#e5484d;--warn:#f6c343;--atk:#ff9800;--bind:#8f43ff;--ban:#e21f35;--sludge:#6b4920;--cyan:#49d4d4}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}header{padding:16px 18px;background:#0b1220;color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0002}header h1{margin:0;font-size:20px}.sub{font-size:12px;color:#cbd5e1;margin-top:2px}main{max-width:1300px;margin:0 auto;padding:16px}.bar,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:12px;box-shadow:0 1px 2px #0000000a}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.spacer{flex:1}.tabs button,.choice,.smallbtn{border:1px solid var(--line);background:#22314a;color:#e5edf7;border-radius:999px;padding:8px 12px;cursor:pointer;font-weight:650}.tabs button.active{background:var(--accent);border-color:var(--accent);color:#fff}.smallbtn{font-size:13px;padding:6px 10px}.smallbtn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}select{border:1px solid var(--line);border-radius:10px;padding:8px;background:#22314a;color:#e5edf7}.hidden{display:none!important}.cards{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}@media(max-width:1000px){.cards{grid-template-columns:repeat(4,1fr)}}.card{border:1px solid var(--line);border-radius:12px;padding:8px;background:#111827;min-height:92px;cursor:pointer}.card.self{box-shadow:0 0 0 3px #60a5fa88;border-color:#60a5fa;background:#172b4d}.role{font-weight:800;font-size:15px}.tag{display:inline-block;border-radius:8px;padding:2px 7px;margin:3px 3px 0 0;font-size:12px;font-weight:750}.dice{background:#e8f0ff;color:#1d4ed8}.sludge{background:#f2e4d2;color:#6b3f13}.marker{color:#fff}.atk{background:var(--atk)}.bind{background:var(--bind)}.ban{background:var(--ban)}.muted{color:var(--muted)}.note{border-left:4px solid var(--accent);padding:8px 10px;background:#201b3a;border-radius:8px;margin:8px 0}.warn{border-left-color:var(--warn);background:#3a2d13}.ok{color:var(--ok);font-weight:800}.bad{color:var(--bad);font-weight:800}.table{width:100%;border-collapse:collapse;font-size:14px}.table th,.table td{border:1px solid var(--line);padding:7px 8px;text-align:left}.table th{background:#26344d}.learnGrid{display:grid;grid-template-columns:minmax(420px,1fr) 1fr;gap:14px}@media(max-width:1000px){.learnGrid{grid-template-columns:1fr}}.miniQuiz{border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0;background:#111827}.miniQuiz b{display:block;margin-bottom:4px;word-break:normal;overflow-wrap:normal;line-height:1.6}.nowrap{white-space:nowrap;word-break:keep-all}.nowrap b{display:inline;margin-bottom:0;line-height:inherit}.answer{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);margin-top:8px;padding-top:6px}.choicewrap{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.choice.active{background:#312e81;border-color:var(--accent);box-shadow:0 0 0 2px #725cff22}.choice.correct{background:#123524;border-color:var(--ok);color:#7ee2b8}.choice.wrong{background:#3b1719;border-color:var(--bad);color:#ff9aa1}.result{min-height:28px;font-weight:750;margin-top:8px}.mapwrap{display:grid;grid-template-columns:minmax(320px,700px) 1fr;gap:12px;align-items:start}@media(max-width:1000px){.mapwrap{grid-template-columns:1fr}}.slideTop{display:flex;gap:8px;align-items:center;justify-content:flex-end;margin-bottom:8px}.slideNo{font-weight:900;background:#111827;color:white;border-radius:999px;padding:5px 10px}.eventTitle{font-size:22px;font-weight:900}.timer{height:12px;border-radius:999px;background:#e5e7eb;overflow:hidden}.timer>div{height:100%;width:100%;background:linear-gradient(90deg,#725cff,#22a06b);will-change:width}.timeline{display:flex;gap:4px;flex-wrap:wrap}.tlitem{border:1px solid var(--line);border-radius:8px;padding:5px 7px;font-size:12px;background:#111827;color:#dbe7f5}.tlitem.active{background:#725cff;color:#fff;border-color:#725cff}svg{max-width:100%;height:auto}.fieldbg{fill:url(#fieldGrad);stroke:#9fb8d4;stroke-width:2}.ring{fill:none;stroke:#e5eef8;stroke-opacity:.35;stroke-width:18}.marktxt{font-weight:900;font-size:18px;paint-order:stroke;stroke:#152034;stroke-width:2px}.hole{fill:#02060d;stroke:#1f7fc4;stroke-width:3;filter:drop-shadow(0 0 5px #2c8fd855)}.hole.activeLine{stroke:#ff5f77;stroke-width:4}.hole.sel{stroke:#22a06b;stroke-width:6}.hole.badsel{stroke:#e5484d;stroke-width:6}.answerCircle{fill:none;stroke:#ffd84d;stroke-width:7}.kefka{fill:#ff5cad;stroke:#fff;stroke-width:2}.hand{stroke:#ff5cad;stroke-width:7;stroke-linecap:round}.chaos{fill:none;stroke:none}.face{stroke:#ffb86c;stroke-width:5;stroke-linecap:round}.beamline{stroke:#ff5f77;stroke-width:2;stroke-dasharray:6 4;opacity:.8}.fullAxis{stroke:#ff5cad;stroke-width:2.5;stroke-dasharray:6 5;opacity:.8}.safeZone{fill:#46c2ff;opacity:.14;stroke:#46c2ff;stroke-width:2}.aoe{fill:#e5484d;opacity:.25;stroke:#e5484d;stroke-width:2}.stack{fill:#49d4d4;opacity:.35;stroke:#49d4d4;stroke-width:2}.tower{fill:#ffd84d;opacity:.35;stroke:#ffd84d;stroke-width:3}.playerAns{fill:#22a06b;stroke:#fff;stroke-width:3;cursor:pointer}.playerBad{fill:#e5484d;stroke:#fff;stroke-width:3}.optionTxt{font-size:11px;font-weight:800;fill:#0f172a;pointer-events:none}.legend{font-size:13px;color:#b8c7dc}.kbd{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#0f1724;border:1px solid var(--line);border-radius:6px;padding:1px 5px}
+
+.targetCircle{fill:none;stroke:#ff9a3d;stroke-width:3.2}.targetFill{fill:none;stroke:none}.optChoice{fill:transparent;stroke:#56d883;stroke-width:2.6;filter:drop-shadow(0 0 3px #56d88366);cursor:pointer}.optSelected{stroke:#ffd84d;stroke-width:4;filter:drop-shadow(0 0 6px #ffd84dcc)}.optWrong{stroke:#ff6673;stroke-width:4;filter:drop-shadow(0 0 6px #ff667399)}.answerSelf{fill:none;stroke:#ffe680;stroke-width:5}.answerOther{fill:none;stroke:#d5ca96;stroke-opacity:.8;stroke-width:2}.correctGlow{fill:#8dffb8;opacity:.18;filter:drop-shadow(0 0 7px #8dffb8aa)}.optLabel{font-size:11px;font-weight:800;fill:#e5edf7;paint-order:stroke;stroke:#162033;stroke-width:2px;pointer-events:none;dominant-baseline:middle}.castBlue{stroke:#62b7ff;stroke-width:5;stroke-linecap:round;opacity:.9;filter:drop-shadow(0 0 7px #62b7ff)}.castBlue2{stroke:#9bd4ff;stroke-width:5;stroke-linecap:round;opacity:.8;stroke-dasharray:8 6}.castBox{fill:transparent;stroke:#62b7ff;stroke-width:3;filter:drop-shadow(0 0 8px #62b7ff);rx:10}.vhLabel{font-size:18px;font-weight:900;fill:#9bd4ff;paint-order:stroke;stroke:#102033;stroke-width:3px}.bhActive{fill:none;stroke:#ff8bd3;stroke-width:2.2;stroke-dasharray:5 5;opacity:.8}.bokuchin{fill:#eef2ff;opacity:.34;stroke:#eef2ff;stroke-width:2}.waitHint{font-size:11px;font-weight:800;fill:#e5f9ea;pointer-events:none}.axisThin{stroke:#ff7ac2;stroke-width:2;stroke-dasharray:6 5;opacity:.9}.vhArea{fill:#66bfff;opacity:.08;stroke:#66bfff;stroke-width:1.5;stroke-dasharray:4 4}.vhPickArea{fill:#66bfff;opacity:.10;stroke:#66bfff;stroke-width:1.5;stroke-dasharray:4 4;cursor:pointer}.vhPickArea.selected{opacity:.26;stroke:#ffd84d;stroke-width:3;filter:drop-shadow(0 0 6px #ffd84dcc)}.vhPickArea.answer{opacity:.22;stroke:#ffe680;stroke-width:3;filter:drop-shadow(0 0 6px #ffe68099)}.vhPickArea.correct{opacity:.25;stroke:#69e39d;stroke-width:3.5;filter:drop-shadow(0 0 6px #69e39d99)}.vhPickArea.wrong{opacity:.25;stroke:#ff6673;stroke-width:3.5;filter:drop-shadow(0 0 6px #ff667399)}.markerChoiceRect{fill:#1b273c;stroke:#7f92ad;stroke-width:2.2;rx:8;filter:drop-shadow(0 0 2px #0008);cursor:pointer}.markerChoiceRect.selected{stroke:#ffd84d;stroke-width:3.4;filter:drop-shadow(0 0 6px #ffd84dcc)}.markerChoiceRect.correct{stroke:#69e39d;stroke-width:3.4;filter:drop-shadow(0 0 6px #69e39d99)}.markerChoiceRect.wrong{stroke:#ff6673;stroke-width:3.4;filter:drop-shadow(0 0 6px #ff667399)}.markerChoiceText{font-size:13px;font-weight:900;fill:#e5edf7;paint-order:stroke;stroke:#101827;stroke-width:2px;pointer-events:none;dominant-baseline:middle}.markerSelfBox{fill:#11223a;stroke:#62b7ff;stroke-width:3;rx:10;filter:drop-shadow(0 0 9px #62b7ff)}.markerSelfText{font-size:13px;font-weight:900;fill:#dff2ff;paint-order:stroke;stroke:#102033;stroke-width:2px;dominant-baseline:middle}.markerDiceText{font-size:14px;font-weight:900;fill:#e5edf7;paint-order:stroke;stroke:#102033;stroke-width:2px}.markerCornerBox{fill:#11223a;stroke:#6ea8ff;stroke-width:2.5;rx:10;filter:drop-shadow(0 0 7px #6ea8ff88)}.markerCornerText{font-size:12px;font-weight:900;fill:#dff2ff;paint-order:stroke;stroke:#102033;stroke-width:2px}.markerCornerBox.atk{fill:#402311;stroke:#ff9a3d;filter:drop-shadow(0 0 7px #ff9a3d88)}.markerCornerBox.bind{fill:#2d1d46;stroke:#b58cff;filter:drop-shadow(0 0 7px #b58cff88)}.markerCornerBox.ban{fill:#4a1519;stroke:#ff6b75;filter:drop-shadow(0 0 7px #ff6b7588)}.bhMarkText{font-size:12px;font-weight:900;paint-order:stroke;stroke:#102033;stroke-width:2px}.practiceMapWrap{position:relative}.practiceOverlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}.practiceBadge{font-size:54px;font-weight:900;color:#fff;background:#0f172acc;border:2px solid #cbd5e1;border-radius:20px;padding:18px 30px;backdrop-filter:blur(4px)}.practiceBadge.start{cursor:pointer;pointer-events:auto;background:#1d4ed8cc;border-color:#93c5fd}.practiceBadge.small{font-size:44px}.practiceLog{margin-top:12px;padding:10px 12px;border:1px solid #284066;border-radius:12px;background:#0f172acc}.practiceLog.final{position:absolute;left:4%;right:4%;bottom:4%;z-index:20;background:#0f1724ee;border-color:#93c5fd;box-shadow:0 0 18px #93c5fd55}.practiceLog h3{margin:0 0 8px;font-size:14px}.practiceLogList{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow:auto}.practiceLogItem{font-size:13px;padding:6px 8px;border-radius:8px;background:#101827}.practiceLogItem.ok{border:1px solid #235c3a;color:#d8ffe5}.practiceLogItem.bad{border:1px solid #7a2f39;color:#ffe1e4}.answerBox{fill:#102033;stroke-width:2.8;rx:10;filter:drop-shadow(0 0 6px #0008)}.answerBox.ok{stroke:#69e39d}.answerBox.bad{stroke:#ff6673}.answerBoxText{font-size:26px;font-weight:900;paint-order:stroke;stroke:#102033;stroke-width:2px}.answerBoxText.ok{fill:#d9ffe8}.answerBoxText.bad{fill:#ffe0e3}
+
+</style>
+</head>
+<body>
+<header><h1>P3後半 ブラックホール練習 v65</h1><div class="sub">Poikos式 / ギミック理解＋位置確認＋実践練習 / 25枚構成</div></header>
+<main>
+  <section class="bar">
+    <div class="row tabs">
+      <button data-tab="learn">ギミック理解</button>
+      <button data-tab="pos">位置確認</button>
+      <button data-tab="practice" class="active">実践練習</button>
+      <span class="spacer"></span>
+      <label><b>自分：</b>
+        <select id="selfRoleSelect"></select>
+      </label>
+      <label><b>方式：</b>
+        <select id="strat"><option>Poikos式</option></select>
+      </label>
+      <button class="smallbtn" id="newProblemTop">新しい問題</button>
+      <button class="smallbtn" id="prevProblemTop">一つ前の問題</button>
+    </div>
+  </section>
+
+  <section class="panel" id="partyPanel">
+    <div class="row"><strong>パーティカード</strong><span class="muted">混沌の土は全員につくため省略。<b>自分</b> は青枠。カードをクリックしても自分のポジションを選べます。</span></div>
+    <div class="cards" id="partyCards"></div>
+  </section>
+
+  <section id="learn" class="panel tabPage hidden"></section>
+  <section id="pos" class="panel tabPage hidden"></section>
+  <section id="practice" class="panel tabPage"></section>
+</main>
+<script>
+const ROLES=["MT","ST","H1","H2","D1","D2","D3","D4"];
+const TH=["MT","ST","H1","H2"], DPS=["D1","D2","D3","D4"];
+const ROLE_KIND={MT:'T',ST:'T',H1:'H',H2:'H',D1:'D',D2:'D',D3:'D',D4:'D'};
+const markerByDice={1:["攻撃1","攻撃2","攻撃3"],2:["バインド1","バインド2","バインド3"],3:["禁止1","禁止2"]};
+const markerKind=m=>m.startsWith("攻撃")?"攻撃":m.startsWith("バインド")?"バインド":"禁止";
+const markerCls=m=>m.startsWith("攻撃")?"atk":m.startsWith("バインド")?"bind":"ban";
+const BEAM_ORDER={1:["攻撃1"],2:["攻撃1","攻撃2"],3:["攻撃1","攻撃2","攻撃3"],4:["バインド1","攻撃2","攻撃3"],5:["バインド1","バインド2","攻撃3"],6:["バインド1","バインド2","バインド3"],7:["禁止1","バインド2","バインド3"],8:["禁止1","禁止2","バインド3"],9:["禁止1","禁止2"],10:["禁止2"]};
+const BEAM_COUNTS={1:1,2:2,3:3,4:3,5:3,6:3,7:3,8:3,9:2,10:1};
+const MARKER_BEAMS=Object.fromEntries(["攻撃1","攻撃2","攻撃3","バインド1","バインド2","バインド3","禁止1","禁止2"].map(m=>[m,[]]));
+for(const [n,arr] of Object.entries(BEAM_ORDER)){ for(const m of arr) MARKER_BEAMS[m].push(Number(n)); }
+const KEFKA_DIRS=[{name:"北",angle:0},{name:"北東",angle:45},{name:"東",angle:90},{name:"南東",angle:135},{name:"南",angle:180},{name:"南西",angle:225},{name:"西",angle:270},{name:"北西",angle:315}];
+const AREA_LABEL={N:'北',E:'東',S:'南',W:'西'};
+
+function shuffle(a){ a=[...a]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+function coord(angle,r){ const R=250*r, rad=(angle-90)*Math.PI/180; return {x:300+R*Math.cos(rad), y:300+R*Math.sin(rad)}; }
+function coordRadius(angle,radius){ const rad=(angle-90)*Math.PI/180; return {x:300+radius*Math.cos(rad), y:300+radius*Math.sin(rad)}; }
+function polarToArea(angle){ const a=(angle+360)%360; if(a>=315||a<45) return 'N'; if(a<135) return 'E'; if(a<225) return 'S'; return 'W'; }
+function sortClockwiseFrom(items,kefkaAngle){ return [...items].sort((a,b)=>((a.angle-kefkaAngle+360)%360)-((b.angle-kefkaAngle+360)%360)); }
+function handLabel(hand){ return hand==='right'?'右手':'左手'; }
+function safeSideFromHand(hand){ return hand==='right'?'右':'左'; }
+function bintaActionFromHand(hand){ return hand==='right'?'頭割り':'ロール散開'; }
+function dummingBintaSide(hand){ return hand==='right'?'L':'R'; }
+function dummingBintaAction(hand){ return hand==='right'?'頭割り':'ロール散開'; }
+function dummingBintaVisualSide(hand){ return hand==='right'?'右':'左'; }
+function deepClone(v){ return JSON.parse(JSON.stringify(v)); }
+
+function buildCandidates(){
+  const pts=[];
+  const vertices=[[0,-230],[230,0],[0,230],[-230,0]];
+  for(let i=0;i<4;i++){
+    const p0=vertices[i], p1=vertices[(i+1)%4];
+    for(const t of [0,1/3,2/3]){
+      const x=p0[0]+(p1[0]-p0[0])*t, y=p0[1]+(p1[1]-p0[1])*t;
+      if(!pts.some(p=>Math.abs(p.x-x)<1 && Math.abs(p.y-y)<1)) pts.push({x,y});
+    }
+  }
+  vertices.forEach(([x,y])=>{ if(!pts.some(p=>Math.abs(p.x-x)<1 && Math.abs(p.y-y)<1)) pts.push({x,y}); });
+  const outer=pts.map((p,i)=>{
+    const angle=(Math.atan2(p.y,p.x)*180/Math.PI+90+360)%360; return {id:'o'+(i+1), x:300+p.x, y:300+p.y, angle, area:polarToArea(angle), ring:'outer'};
+  });
+  const inner=[0,45,90,135,180,225,270,315].map((a,i)=>{ const c=coord(a,0.42); return {id:'i'+(i+1), x:c.x, y:c.y, angle:a, area:polarToArea(a), ring:'inner'}; });
+  return [...outer,...inner];
+}
+const ALL_CANDIDATES=buildCandidates();
+
+let selfRole='MT';
+let currentProblem=null;
+let previousProblem=null;
+let posSlide=0;
+let practiceSlide=0;
+let practiceRunning=false;
+let practiceRemain=0;
+let practiceTimer=null;
+let practiceFrame=null;
+let practiceSlideStartedAt=0;
+let practiceStep=0;
+let practiceStarted=false;
+let practiceCountdown=0;
+let practicePaused=false;
+let practiceLastRenderKey='';
+let practiceLog=[];
+let practiceLoggedSteps={};
+let practiceMode='continuous';
+let practiceShowFinalLog=false;
+let practiceFinalLogTimer=null;
+
+const SLIDES=[
+  {id:'p1', kind:'prep-tank', title:'サンダガ2連'},
+  {id:'p2', kind:'prep-split', title:'決戦2回目：2ボス分担'},
+  {id:'p3', kind:'prep-marker', title:'中央重ね＋初期デバフ確認'},
+  {id:'s1', kind:'binta-start', title:'ケフカ出現＋びんびんビンタ', desc:'ケフカの手を見て、半面と頭割り/ロール散開を判断。'},
+  {id:'s2', kind:'beam', beam:1, title:'ビーム1回目'},
+  {id:'s3', kind:'beam', beam:2, title:'ビーム2回目'},
+  {id:'s4', kind:'thunder1', title:'サンダガ（強攻撃）'},
+  {id:'s5', kind:'dumming-binta', title:'ケフカ移動＋ダミング＋びんびんビンタ'},
+  {id:'s6', kind:'beam', beam:3, title:'ビーム3回目'},
+  {id:'s7', kind:'beam', beam:4, title:'ビーム4回目'},
+  {id:'s8', kind:'beam', beam:5, title:'ビーム5回目'},
+  {id:'s9', kind:'dumming-bokuchin', title:'ケフカ移動＋ダミング＋ぼくちん'},
+  {id:'s10', kind:'thunder2', title:'サンダガ（強攻撃）'},
+  {id:'s11', kind:'beam', beam:6, title:'ビーム6回目'},
+  {id:'s12', kind:'beam', beam:7, title:'ビーム7回目'},
+  {id:'s13', kind:'beam', beam:8, title:'ビーム8回目'},
+  {id:'s14', kind:'whitehole', title:'ケフカ移動＋ホワイトホール'},
+  {id:'s15', kind:'vh-binta', title:'ヴァ/ホリ＋びんびんビンタ'},
+  {id:'s16', kind:'beam', beam:9, title:'ビーム9回目'},
+  {id:'s17', kind:'beam', beam:10, title:'ビーム10回目＋ぼくちん'},
+  {id:'s18', kind:'blizzaga', title:'ブリザガ'},
+  {id:'s19', kind:'jitanda-prep', title:'どんどこ地団駄 準備'},
+  {id:'s20', kind:'jitanda1', title:'どんどこ地団駄①'},
+  {id:'s21', kind:'jitanda2', title:'どんどこ地団駄②'},
+  {id:'s22', kind:'towers', title:'突出せよ＋タケノコ'}
+];
+
+function populateSelfSelect(){
+  const sel=document.getElementById('selfRoleSelect');
+  sel.innerHTML=ROLES.map(r=>`<option ${r===selfRole?'selected':''}>${r}</option>`).join('');
+  sel.onchange=e=>{ selfRole=e.target.value; renderAll(); };
+}
+
+function genParty(){
+  const dice={};
+  const thDice=shuffle([1,2,2,3]);
+  const dpsDice=shuffle([1,1,2,3]);
+  TH.forEach((r,i)=>dice[r]=thDice[i]);
+  DPS.forEach((r,i)=>dice[r]=dpsDice[i]);
+  const byD={1:[],2:[],3:[]};
+  ROLES.forEach(r=>byD[dice[r]].push(r));
+  const markers={};
+  [1,2,3].forEach(d=>{ const ms=shuffle(markerByDice[d]); byD[d].forEach((r,i)=>markers[r]=ms[i]); });
+  const sludge=new Set(shuffle(ROLES).slice(0,2));
+  return ROLES.map(r=>({role:r, dice:dice[r], marker:markers[r], sludge:sludge.has(r)}));
+}
+
+function getSelfParty(){ return currentProblem.party.find(p=>p.role===selfRole); }
+
+function genVisibleHoles(){
+  const byArea={N:ALL_CANDIDATES.filter(c=>c.area==='N'),E:ALL_CANDIDATES.filter(c=>c.area==='E'),S:ALL_CANDIDATES.filter(c=>c.area==='S'),W:ALL_CANDIDATES.filter(c=>c.area==='W')};
+  const counts={N:2,E:2,S:2,W:2};
+  shuffle(['N','E','S','W']).slice(0,3).forEach(a=>counts[a]++);
+  const out=[];
+  for(const area of ['N','E','S','W']) out.push(...shuffle(byArea[area]).slice(0,counts[area]));
+  return out;
+}
+
+
+function makePoint(id,x,y,ring='inner'){
+  const angle=(Math.atan2(y-300,x-300)*180/Math.PI+90+360)%360;
+  return {id,x,y,angle,area:polarToArea(angle),ring};
+}
+function getOuterCardinalPoints(){
+  return [
+    makePoint('outerN',300,76,'outer'),
+    makePoint('outerE',524,300,'outer'),
+    makePoint('outerS',300,524,'outer'),
+    makePoint('outerW',76,300,'outer')
+  ];
+}
+function makeBlackholePattern(patternNo, missingArea){
+  const outerAll=getOuterCardinalPoints();
+  const outer=outerAll.filter(h=>h.area!==missingArea);
+  let inner=[], middle=[];
+  if(patternNo===1){
+    inner=[
+      makePoint('p1_in_N',300,188,'inner'),
+      makePoint('p1_in_E',392,300,'inner'),
+      makePoint('p1_in_S',300,392,'inner'),
+      makePoint('p1_in_W',208,300,'inner')
+    ];
+    middle=[
+      makePoint('p1_mid_N',244,132,'middle'),
+      makePoint('p1_mid_E',458,234,'middle'),
+      makePoint('p1_mid_S',356,458,'middle'),
+      makePoint('p1_mid_W',142,356,'middle')
+    ];
+  }else{
+    const cx=300, cy=300, half=94, rot=-15*Math.PI/180;
+    const base=[[-half,-half],[half,-half],[half,half],[-half,half]];
+    const verts=base.map(([x,y],i)=>{
+      const rx=x*Math.cos(rot)-y*Math.sin(rot), ry=x*Math.sin(rot)+y*Math.cos(rot);
+      return makePoint('p2_in_'+i, cx+rx, cy+ry, 'inner');
+    });
+    inner=verts;
+    middle=[
+      makePoint('p2_mid_N',364,124,'middle'),
+      makePoint('p2_mid_E',480,364,'middle'),
+      makePoint('p2_mid_S',236,480,'middle'),
+      makePoint('p2_mid_W',124,236,'middle')
+    ];
+  }
+  return {patternNo, missingArea, outer, inner, middle, visible:[...inner, ...middle, ...outer]};
+}
+function chooseActiveOuter(outer, count){
+  const ordered=sortClockwiseFrom(outer,0);
+  if(count===1) return [pick(outer)];
+  if(count===2){
+    const start=Math.floor(Math.random()*ordered.length);
+    return [ordered[start], ordered[(start+1)%ordered.length]];
+  }
+  return outer;
+}
+function chooseEndpointOuterArea(outer){
+  const ordered=sortClockwiseFrom(outer,0);
+  const start=Math.floor(Math.random()*ordered.length);
+  const triple=[ordered[start], ordered[(start+1)%ordered.length], ordered[(start+2)%ordered.length]];
+  return pick([triple[0], triple[2]]).area;
+}
+function makeBeamStatesForProblem(groupA, groupB, groupC, groupD){
+  const states={};
+  const missing12=pick(['N','E','S','W']);
+  const missing35=pick(['N','E','S','W']);
+  const missing68=pick(['N','E','S','W']);
+  const missing910=pick(['N','E','S','W']);
+
+  const outer12=makeBlackholePattern(1, missing12).outer;
+  const beam1Area=chooseEndpointOuterArea(outer12);
+  const beam2Areas=outer12.map(h=>h.area).filter(a=>a!==beam1Area);
+
+  const outer35=makeBlackholePattern(1, missing35).outer;
+  const beam35Areas=outer35.map(h=>h.area);
+
+  const outer68=makeBlackholePattern(1, missing68).outer;
+  const beam68Areas=outer68.map(h=>h.area);
+
+  const outer910=makeBlackholePattern(1, missing910).outer;
+  const beam10Area=pick(outer910.map(h=>h.area));
+  const beam9Areas=outer910.map(h=>h.area).filter(a=>a!==beam10Area);
+
+  function makeState(beam, kefka, missingArea, activeAreas){
+    const patternNo=(beam%2===1)?1:2;
+    const pat=makeBlackholePattern(patternNo, missingArea);
+    const active=pat.outer.filter(h=>activeAreas.includes(h.area));
+    const ordered=sortClockwiseFrom(active, kefka.angle);
+    const answerMap={};
+    BEAM_ORDER[beam].forEach((m,i)=>{ answerMap[m]=ordered[i]?.id || null; });
+    return {visible:pat.visible, active, ordered, answerMap, patternNo, missingArea};
+  }
+
+  states[1]=makeState(1, groupA, missing12, [beam1Area]);
+  states[2]=makeState(2, groupA, missing12, beam2Areas);
+  states[3]=makeState(3, groupB, missing35, beam35Areas);
+  states[4]=makeState(4, groupB, missing35, beam35Areas);
+  states[5]=makeState(5, groupB, missing35, beam35Areas);
+  states[6]=makeState(6, groupC, missing68, beam68Areas);
+  states[7]=makeState(7, groupC, missing68, beam68Areas);
+  states[8]=makeState(8, groupC, missing68, beam68Areas);
+  states[9]=makeState(9, groupD, missing910, beam9Areas);
+  states[10]=makeState(10, groupD, missing910, [beam10Area]);
+  return states;
+}
+
+function genBeamState(beam, kefka){
+  const visible=genVisibleHoles();
+  const beamAreas=shuffle(['N','E','S','W']).slice(0,BEAM_COUNTS[beam]);
+  const active=beamAreas.map(ar=>pick(visible.filter(v=>v.area===ar)));
+  const ordered=sortClockwiseFrom(active,kefka.angle);
+  const answerMap={};
+  BEAM_ORDER[beam].forEach((m,i)=>{ answerMap[m]=ordered[i]?.id || null; });
+  return {visible, active, ordered, beamAreas, answerMap};
+}
+
+function genProblem(){
+  const party=genParty();
+  const groupA={dir:pick(KEFKA_DIRS), hand:pick(['left','right'])};
+  const groupB={dir:pick(KEFKA_DIRS), hand:pick(['left','right'])};
+  const groupC={dir:pick(KEFKA_DIRS), hand:null};
+  const groupD={dir:pick(KEFKA_DIRS), hand:pick(['left','right']), vh:pick(['vertical','horizontal'])};
+  const groups={A:groupA,B:groupB,C:groupC,D:groupD};
+  const beamStates=makeBeamStatesForProblem(groupA.dir, groupB.dir, groupC.dir, groupD.dir);
+  const headsplitRole=pick(['TH','DPS']);
+  const headsplitPair=headsplitRole==='TH' ? pick(['1','4']) : pick(['2','3']);
+  const slides={};
+  SLIDES.forEach(sl=>{
+    if(sl.kind==='beam'){
+      const kefka=(sl.beam<=2)?groupA.dir:(sl.beam<=5)?groupB.dir:(sl.beam<=8)?groupC.dir:groupD.dir;
+      slides[sl.id]={id:sl.id, kind:'beam', beam:sl.beam, title:sl.title, kefka, ...beamStates[sl.beam], selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='prep-tank'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:{name:'A',angle:0}, exdeath:{name:'A', angle:0, pos:{x:300,y:190}}, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='prep-split'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:{name:'A',angle:0}, exdeath:{name:'A', angle:0, pos:{x:300,y:190}}, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='prep-marker'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:{name:'北',angle:0}, exdeath:{center:true}, selected:null, selectedPos:null, selectedMarker:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='binta-start'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupA.dir, hand:groupA.hand, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='thunder1'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupA.dir, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='dumming-binta'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupB.dir, hand:groupB.hand, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='dumming-bokuchin'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupC.dir, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='thunder2'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupC.dir, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='whitehole'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupD.dir, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='vh-binta'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupD.dir, hand:groupD.hand, vh:groupD.vh, selected:null, selectedVhSafe:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='blizzaga'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupD.dir, selected:null, judged:false, showAnswer:false};
+    }else if(sl.kind==='jitanda-prep' || sl.kind==='jitanda1' || sl.kind==='jitanda2' || sl.kind==='towers'){
+      slides[sl.id]={id:sl.id, kind:sl.kind, title:sl.title, kefka:groupD.dir, headsplitRole, headsplitPair, selected:null, judged:false, showAnswer:false};
+    }
+  });
+  return {party, groups, slides, learnState:{answers:{}, judged:false, showAnswer:false}};
+}
+
+function newProblemPosition(){ previousProblem=currentProblem?deepClone(currentProblem):previousProblem; currentProblem=genProblem(); stopPractice(); renderAll(); }
+
+const PRACTICE_PLAN=[
+  {slide:0,duration:4,answer:0.8,key:'prepTankMT'},
+  {slide:0,duration:2,answer:0.8,key:'prepTankST'},
+  {slide:1,duration:4,answer:1},
+  {slide:2,duration:7,answer:1,key:'prepMarkerPos'},
+  {slide:2,duration:11,answer:1,key:'prepMarkerDice',revealAfter:6},
+  {slide:3,duration:7,answer:1,hideHandUntil:2},
+  {slide:4,duration:5,answer:1},
+  {slide:5,duration:5,answer:1,hideHandUntil:2},
+  {slide:6,duration:3,answer:1},
+  {slide:7,duration:5,answer:1},
+  {slide:8,duration:4,answer:1},
+  {slide:9,duration:4,answer:1},
+  {slide:10,duration:4,answer:1},
+  {slide:11,duration:3,answer:1,key:'bokuchinWaitOnly'},
+  {slide:12,duration:4,answer:1},
+  {slide:13,duration:5,answer:1},
+  {slide:14,duration:4,answer:1},
+  {slide:15,duration:4,answer:1},
+  {slide:16,duration:4,answer:1},
+  {slide:17,duration:5,answer:0.8,key:'vhFirstOne',hideHandUntil:2},
+  {slide:17,duration:2.5,answer:0.8,key:'vhSecond'},
+  {slide:18,duration:5,answer:1},
+  {slide:19,duration:5,answer:1},
+  {slide:20,duration:6,answer:1},
+  {slide:21,duration:2.5,answer:0.8,key:'jitandaPrep'},
+  {slide:22,duration:2.5,answer:0.8},
+  {slide:23,duration:1.5,answer:0.8},
+  {slide:24,duration:2,answer:1}
+];
+function getPracticeSpec(){ return PRACTICE_PLAN[practiceStep]||PRACTICE_PLAN[0]; }
+function getPracticeSlideIndex(){ return getPracticeSpec().slide; }
+function getPracticeElapsed(){ const spec=getPracticeSpec(); return Math.max(0, spec.duration-practiceRemain); }
+function shouldShowPracticeParty(){ const spec=getPracticeSpec(); if(spec.slide<2) return false; if(spec.slide===2) return spec.key==='prepMarkerDice' && getPracticeElapsed()>=(spec.revealAfter||0); return true; }
+function markerShort(m){ return m.replace('攻撃','攻').replace('バインド','バ').replace('禁止','禁'); }
+function getMarkerKindClass(marker){ return marker.startsWith('攻撃')?'atk':marker.startsWith('バインド')?'bind':'ban'; }
+function getPracticeRenderContext(slide){
+  const spec=getPracticeSpec();
+  const elapsed=getPracticeElapsed();
+  return {
+    key:spec.key||'',
+    elapsed,
+    duration:spec.duration,
+    showAnswer:practiceStarted && practiceCountdown<=0 && practiceRemain<=spec.answer,
+    hideHand:!!spec.hideHandUntil && elapsed<spec.hideHandUntil,
+    showParty:shouldShowPracticeParty(),
+    showPrepMarkerChoices:!(spec.key==='prepMarkerDice') || elapsed>=(spec.revealAfter||0),
+    singleVhFirst:spec.key==='vhFirstOne',
+    prepTankRole:spec.key==='prepTankMT'?'MT':spec.key==='prepTankST'?'ST':null,
+    waitOnly:spec.key==='bokuchinWaitOnly',
+    showHeadsplitBox:spec.key==='jitandaPrep'
+  };
+}
+function getRenderedCorrectChoiceForRole(slide, role, ctx){
+  if(!ctx) return getCorrectChoiceForRole(slide, role);
+  if(slide.kind==='prep-tank' && ctx.prepTankRole) return role===ctx.prepTankRole ? 'exTank' : 'hdWait';
+  if(slide.kind==='dumming-bokuchin' && ctx.waitOnly) return 'wait';
+  return getCorrectChoiceForRole(slide, role);
+}
+function getRenderedAllCorrectChoices(slide, ctx){ return [...new Set(ROLES.map(r=>getRenderedCorrectChoiceForRole(slide,r,ctx)).filter(Boolean))]; }
+function getRenderedCorrectChoiceForSlide(slide, ctx){ return getRenderedCorrectChoiceForRole(slide, selfRole, ctx); }
+function getRenderedVhFirstAreas(slide, ctx){
+  return getVhFirstAreas(slide);
+}
+
+function resetPracticeLog(){ practiceLog=[]; practiceLoggedSteps={}; practiceShowFinalLog=false; if(practiceFinalLogTimer){ clearTimeout(practiceFinalLogTimer); practiceFinalLogTimer=null; } }
+function getPracticePhaseLabel(spec){
+  if(spec.key==='prepTankMT') return '1回目サンダガ';
+  if(spec.key==='prepTankST') return '2回目サンダガ';
+  if(spec.key==='prepMarkerPos') return '強攻撃';
+  if(spec.key==='prepMarkerDice') return 'サイコロ';
+  if(spec.key==='vhFirstOne') return '1回目ヴァ/ホリ安置';
+  if(spec.key==='vhSecond') return '2回目びんた';
+  return '';
+}
+function addPracticeLogForStep(step){
+  if(practiceLoggedSteps[step]) return;
+  const spec=PRACTICE_PLAN[step]; if(!spec) return;
+  const slideMeta=SLIDES[spec.slide];
+  const slide=currentProblem.slides[slideMeta.id];
+  const ok=isSlideCorrect(slide, getPracticeRenderContext(slide));
+  const phase=getPracticePhaseLabel(spec);
+  const label=`${step+1}. ${slideMeta.title}${phase?`（${phase}）`:''}`;
+  practiceLog.push({step,label,ok});
+  practiceLoggedSteps[step]=true;
+}
+function renderPracticeLog(final=false){
+  if(!practiceLog.length) return `<div class="practiceLog${final?' final':''}"><h3>正誤ログ</h3><div class="practiceLogList"><div class="practiceLogItem">まだログはありません</div></div></div>`;
+  const items=practiceLog.slice().reverse().map(item=>`<div class="practiceLogItem ${item.ok?'ok':'bad'}">${item.label}：${item.ok?'正解':'不正解'}</div>`).join('');
+  return `<div class="practiceLog${final?' final':''}"><h3>正誤ログ</h3><div class="practiceLogList">${items}</div></div>`;
+}
+function showFinalPracticeLog(){
+  practiceShowFinalLog=true;
+  if(practiceFinalLogTimer) clearTimeout(practiceFinalLogTimer);
+  renderPractice();
+  practiceFinalLogTimer=setTimeout(()=>{
+    practiceShowFinalLog=false;
+    practiceFinalLogTimer=null;
+    if(practiceMode==='continuous'){
+      previousProblem=currentProblem?deepClone(currentProblem):previousProblem;
+      currentProblem=genProblem();
+      practiceStep=0;
+      practiceSlide=0;
+      practiceRemain=getPracticeSpec().duration;
+      practiceStarted=false;
+      practiceCountdown=3;
+      practicePaused=false;
+      resetPracticeLog();
+      practiceRunning=true;
+      practiceSlideStartedAt=0;
+      practiceLastRenderKey='';
+      practiceFrame=requestAnimationFrame(practiceTick);
+      renderPractice();
+    }else{
+      renderPractice();
+    }
+  },5000);
+}
+function newProblemPractice(){ previousProblem=currentProblem?deepClone(currentProblem):previousProblem; currentProblem=genProblem(); practiceStep=0; practiceSlide=0; practiceRemain=getPracticeSpec().duration; practiceStarted=false; practiceCountdown=0; practicePaused=false; resetPracticeLog(); stopPractice(); renderAll(); }
+function restorePreviousProblemPosition(){ if(previousProblem){ const tmp=deepClone(currentProblem); currentProblem=deepClone(previousProblem); previousProblem=tmp; stopPractice(); renderAll(); } }
+function restorePreviousProblemPractice(){ if(previousProblem){ const tmp=deepClone(currentProblem); currentProblem=deepClone(previousProblem); previousProblem=tmp; practiceStep=0; practiceSlide=0; practiceRemain=getPracticeSpec().duration; practiceStarted=false; practiceCountdown=0; practicePaused=false; resetPracticeLog(); stopPractice(); renderAll(); } }
+
+
+function newProblem(){
+  previousProblem=currentProblem?deepClone(currentProblem):previousProblem;
+  currentProblem=genProblem();
+  posSlide=0;
+  practiceStep=0;
+  practiceSlide=0;
+  practiceRemain=getPracticeSpec().duration;
+  practiceStarted=false;
+  practiceCountdown=0;
+  practicePaused=false;
+  resetPracticeLog();
+  stopPractice();
+  renderAll();
+}
+function restorePreviousProblem(){
+  if(previousProblem){
+    const tmp=deepClone(currentProblem);
+    currentProblem=deepClone(previousProblem);
+    previousProblem=tmp;
+    posSlide=0;
+    practiceSlide=0;
+    practiceRemain=slideDuration(0);
+    stopPractice();
+    renderAll();
+  }
+}
+
+function renderCards(){
+  const practiceVisible = !document.getElementById('practice').classList.contains('hidden');
+  const roleOnly = practiceVisible && !shouldShowPracticeParty();
+  document.getElementById('partyCards').innerHTML=currentProblem.party.map(p=>`<div class="card ${p.role===selfRole?'self':''}" data-role="${p.role}">
+    <div class="role">${p.role}</div>
+    ${roleOnly?'':`<span class="tag dice">サイコロ${p.dice}</span>
+    ${p.sludge?'<span class="tag sludge">汚泥</span>':''}
+    <span class="tag marker ${markerCls(p.marker)}">${p.marker}</span>`}
+  </div>`).join('');
+  document.querySelectorAll('[data-role]').forEach(el=>el.onclick=()=>{ selfRole=el.dataset.role; document.getElementById('selfRoleSelect').value=selfRole; renderAll(); });
+}
+
+function buildLearnQuizzes(){
+  const me=getSelfParty();
+  const marker=me.marker;
+  const beams=MARKER_BEAMS[marker];
+  const ques=[];
+  let qn=1;
+
+  function add(type,prompt,options,correct,explain){
+    ques.push({id:'q'+qn,type,prompt:`Q${qn}. ${prompt}`,options,correct,explain});
+    qn++;
+  }
+  function handText(hand){
+    return hand==='right'?'右手(向かって左側の手)':'左手(向かって右側の手)';
+  }
+  function sideText(side){
+    return side==='R'?'右側':'左側';
+  }
+  function bintaOptions(){
+    return ['右側で頭割り','左側で頭割り','右側でロール散開','左側でロール散開'];
+  }
+  function normalBintaAnswer(slide){
+    const side=safeSideFromHand(slide.hand)==='右'?'R':'L';
+    return `${sideText(side)}で${bintaActionFromHand(slide.hand)}`;
+  }
+  function dummingBintaAnswer(slide){
+    const side=dummingBintaSide(slide.hand);
+    return `${dummingBintaVisualSide(slide.hand)}側で${dummingBintaAction(slide.hand)==='頭割り'?'頭割り':dummingBintaAction(slide.hand)}`;
+  }
+  function addBeamQuestion(beam){
+    const action=beamActionText(beam, marker);
+    add('single',
+      `ビーム${beam}回目。あなた（${marker}）はどこで何をする？`,
+      beamActionChoices(),
+      [action],
+      `ビーム${beam}回目の ${marker} の正解は「${action}」です。`
+    );
+  }
+  function thunderAnswer(which){
+    if(which===1) return selfRole==='ST'?'STでカオス内サンダガを受ける':'待機する';
+    return selfRole==='MT'?'MTでカオス内サンダガを受ける':'待機する';
+  }
+  function addThunderQuestion(which){
+    const correct=thunderAnswer(which);
+    const prompt = which===1
+      ? 'ビーム2回目後のサンダガ。あなたはどこで何をする？'
+      : 'ビーム5回目の後、ダミング＋ぼくちん後のサンダガ。あなたはどこで何をする？';
+    add('single',
+      prompt,
+      ['MTでカオス内サンダガを受ける','STでカオス内サンダガを受ける','待機する','タゲサ外でHD受けする'],
+      [correct],
+      which===1 ? '1回目サンダガはSTが受け、他は待機です。' : '2回目サンダガはMTが受け、他は待機です。'
+    );
+  }
+  function choiceFromMap(id){
+    if(id==='headsplit') return '中央で頭割り';
+    if(id==='towerB') return 'B塔を踏む';
+    if(id==='towerD') return 'D塔を踏む';
+    if(id==='center') return '中央へ行く';
+    return '待機する';
+  }
+
+  // Q1/Q2は従来どおり
+  ques.push({id:'q1',type:'single',prompt:`Q1. あなた：<span class="nowrap"><b>${selfRole}</b> / サイコロ <b>${me.dice}</b></span>。自分につけるマーカーはどれ？`, options:['攻撃','バインド','禁止'], correct:[markerKind(marker)], explain:`サイコロ${me.dice}なので、つけるマーカーは「${markerKind(marker)}」です。`});
+  qn=2;
+  ques.push({id:'q2',type:'multi',prompt:`Q2. あなたのマーカーは <b>${marker}</b> です。受けるブラックホール（ビーム）をすべて選んでください。`, options:[1,2,3,4,5,6,7,8,9,10].map(String), correct:beams.map(String), explain:`${marker} が受けるのは ${beams.join('、')}回目です。`});
+  qn=3;
+  add('single',
+    `決戦直後のサンダガ。あなたはどこで何をする？`,
+    ['MTでカオス内サンダガを受ける','STでカオス内サンダガを受ける','待機する','タゲサ外でHD受けする'],
+    [selfRole==='MT'?'MTでカオス内サンダガを受ける':'待機する'],
+    '決戦直後のサンダガはMTが受け、他は待機です。'
+  );
+
+  const s1=currentProblem.slides.s1;
+  add('single',
+    `1回目びんびんビンタ。ケフカが<b>${handText(s1.hand)}</b>を挙げている。あなたはどこで何をする？`,
+    bintaOptions(),
+    [normalBintaAnswer(s1)],
+    `${handText(s1.hand)}上げなので、${normalBintaAnswer(s1)}です。`
+  );
+
+  addBeamQuestion(1);
+  addBeamQuestion(2);
+  addThunderQuestion(1);
+
+  const s5=currentProblem.slides.s5;
+  add('single',
+    `ダミング後のびんびんビンタ。ケフカが<b>${handText(s5.hand)}</b>を挙げている。あなたはどこで何をする？`,
+    bintaOptions(),
+    [dummingBintaAnswer(s5)],
+    `ダミング後は、フィールド中央から見て右側が安置なら集合、左側が安置ならロール散開です。今回は ${dummingBintaVisualSide(s5.hand)}側で${dummingBintaAction(s5.hand)==='頭割り'?'集合':dummingBintaAction(s5.hand)} です。`
+  );
+
+  addBeamQuestion(3);
+  addBeamQuestion(4);
+  addBeamQuestion(5);
+
+  add('single',
+    `ダミング＋ぼくちん。あなたはどこで何をする？`,
+    ['MTでカオス近くに立つ','左右どちらかの待機位置へ行く','中央で頭割りする','D塔を踏む'],
+    ['左右どちらかの待機位置へ行く'],
+    'このタイミングは全員、ぼくちんと半面を避けた待機位置が正解です。'
+  );
+
+  addThunderQuestion(2);
+  addBeamQuestion(6);
+  addBeamQuestion(7);
+  addBeamQuestion(8);
+
+  add('single',
+    `ホワイトホール。あなたは何を意識する？`,
+    ['HPを満タンにする','ブラックホールを取る','B塔を踏む','ロール散開する'],
+    ['HPを満タンにする'],
+    'ホワイトホールはHP満タン意識です。'
+  );
+
+  const s15=currentProblem.slides.s15;
+  add('single',
+    `ヴァ/ホリ＋びんびんビンタ。<br><span class="nowrap">詠唱：<b>${s15.vh==='vertical'?'ヴァーティカル':'ホリゾンタル'}</b> / ケフカ：<b>${handText(s15.hand)}上げ</b></span>。2回目安置であなたはどこで何をする？`,
+    bintaOptions(),
+    [normalBintaAnswer(s15)],
+    `2回目安置側で、${normalBintaAnswer(s15)} が正解です。`
+  );
+
+  addBeamQuestion(9);
+  addBeamQuestion(10);
+
+  add('single',
+    `ブリザガ。あなたはどこで何をする？`,
+    ['中央でブリザガを重ねる','外周で待機する','B塔を踏む','ケフカ側で散会する'],
+    ['中央でブリザガを重ねる'],
+    'ビーム10後は中央集合してブリザガを重ねます。'
+  );
+
+  const prepCorrect='pair'+pairSlotForRole(selfRole);
+  const pairChoiceMap={pair4:'MT/H1（4方向）',pair1:'ST/H2（1方向）',pair3:'D1/D3（3方向）',pair2:'D2/D4（2方向）'};
+  add('single',
+    `どんどこ地団駄準備。あなたはどのペア散会位置へ行く？`,
+    Object.values(pairChoiceMap),
+    [pairChoiceMap[prepCorrect]],
+    `あなた（${selfRole}）は ${pairChoiceMap[prepCorrect]} が正解です。`
+  );
+
+  const s20=currentProblem.slides.s20;
+  const j1Correct=choiceFromMap(getCorrectChoiceForRole(s20,selfRole));
+  add('single',
+    `どんどこ地団駄①。頭割りは <b>${s20.headsplitRole==='TH'?'TH':'DPS'}</b> 側です。あなたはどこへ行く？`,
+    ['中央で頭割り','B塔を踏む','D塔を踏む','待機する'],
+    [j1Correct],
+    `あなた（${selfRole}）の正解は「${j1Correct}」です。`
+  );
+
+  const s21=currentProblem.slides.s21;
+  const j2Correct=choiceFromMap(getCorrectChoiceForRole(s21,selfRole));
+  add('single',
+    `どんどこ地団駄②。あなたはどこへ行く？`,
+    ['中央へ行く','B塔を踏む','D塔を踏む','待機する'],
+    [j2Correct],
+    `あなた（${selfRole}）の正解は「${j2Correct}」です。`
+  );
+
+  add('single',
+    `突出せよ＋タケノコ。あなたはどう動く？`,
+    ['中央で止まる','ケフカ側へ散会して動き続ける','B塔を踏む','ブラックホールを取る'],
+    ['ケフカ側へ散会して動き続ける'],
+    '中央のタケノコを避け、ブリザガ対策で動き続けます。'
+  );
+
+  return ques;
+}
+
+function beamActionChoices(){ return ['時計回り1番目のブラックホールを取る','時計回り2番目のブラックホールを取る','時計回り3番目のブラックホールを取る','待機する']; }
+function beamActionText(beam, marker){ const arr=BEAM_ORDER[beam]; const idx=arr.indexOf(marker); return idx>=0?`時計回り${idx+1}番目のブラックホールを取る`:'待機する'; }
+
+function renderLearn(){
+  const qs=buildLearnQuizzes();
+  const state=currentProblem.learnState;
+  const btns=`<div class="row" style="margin-bottom:8px"><button class="smallbtn" id="learnNext1">次の問題</button><button class="smallbtn" id="learnJudge1">判定</button><button class="smallbtn" id="learnShow1">正解を表示</button><button class="smallbtn" id="learnReset1">回答リセット</button></div>`;
+  const quizzes=qs.map(q=>{
+    const ans=state.answers[q.id] || [];
+    const judged=state.judged || state.showAnswer;
+    return `<div class="miniQuiz"><b>${q.prompt}</b><div class="choicewrap">${q.options.map(opt=>{
+      const selected=ans.includes(String(opt));
+      let cls='choice';
+      if(selected) cls+=' active';
+      if(judged){
+        const correct=q.correct.includes(String(opt));
+        if(correct) cls+=' correct';
+        else if(selected) cls+=' wrong';
+      }
+      return `<button class="${cls}" data-q="${q.id}" data-opt="${String(opt)}">${opt}</button>`;
+    }).join('')}</div><div class="result">${judged?renderLearnResult(q, ans):''}</div>${state.showAnswer?`<div class="answer">${q.explain}</div>`:''}</div>`;
+  }).join('');
+  const me=getSelfParty();
+  const explanation=`
+    <div class="eventTitle">ギミック理解</div>
+    <div class="note">現在の自分：<b>${selfRole}</b> / サイコロ<b>${me.dice}</b> / マーカー<b>${me.marker}</b>${me.sludge?' / 汚泥あり':''}</div>
+    <p><b>基本ルール</b></p>
+    <ul>
+      <li>サイコロ1 → <b>攻撃1〜3</b>、サイコロ2 → <b>バインド1〜3</b>、サイコロ3 → <b>禁止1〜2</b> のマーカーを自分で付ける。</li>
+      <li>ブラックホールは<b>パターン1 / パターン2 を交互</b>に出す。各パターンは <b>外周3個＋中間4個＋内側4個</b> の計11個表示で、ビーム線は外周3個から出る。ビームは基本<b>ケフカ基準で時計回り優先</b>。</li>
+      <li>1・2回目、9・10回目は出た玉が消えて次の線へ移動。3〜5回目は同じ外周3か所から3回、6〜8回目も同じ外周3か所から3回出る。1・2回目は2本目が対角にならないよう調整。ビーム担当は 1〜10回で <span class="kbd">A1 → A1,A2 → A1,A2,A3 → B1,A2,A3 → B1,B2,A3 → B1,B2,B3 → K1,B2,B3 → K1,K2,B3 → K1,K2 → K2</span>。</li>
+      <li>ダミング時は <b>カオスを外周ケフカに向ける</b>。ケフカがいない側の半分へ逃げ、さらにビンタを処理。</li>
+      <li>びんびんビンタは、右手上げなら <b>右側＋頭割り</b>、左手上げなら <b>左側＋ロール散開</b> として扱う。</li>
+      <li>ビーム10後は <b>中央でブリザガを重ねる</b> → 地団駄・頭割り・塔処理へ。</li>
+    </ul>
+    <table class="table"><tr><th>マーカー</th><th>受けるビーム</th></tr>${Object.entries(MARKER_BEAMS).map(([m,b])=>`<tr><td>${m}</td><td>${b.join('、')}</td></tr>`).join('')}</table>
+  `;
+  document.getElementById('learn').innerHTML=`<div class="learnGrid"><div>${btns}${quizzes}${btns.replaceAll('1','2')}</div><div>${explanation}</div></div>`;
+  document.querySelectorAll('#learn [data-q]').forEach(btn=>btn.onclick=()=>toggleLearnAnswer(btn.dataset.q, btn.dataset.opt));
+  ['1','2'].forEach(n=>{
+    document.getElementById('learnNext'+n).onclick=()=>newProblem();
+    document.getElementById('learnJudge'+n).onclick=()=>{ currentProblem.learnState.judged=true; renderLearn(); };
+    document.getElementById('learnShow'+n).onclick=()=>{ currentProblem.learnState.judged=true; currentProblem.learnState.showAnswer=true; renderLearn(); };
+    document.getElementById('learnReset'+n).onclick=()=>{ currentProblem.learnState.answers={}; currentProblem.learnState.judged=false; currentProblem.learnState.showAnswer=false; renderLearn(); };
+  });
+}
+function toggleLearnAnswer(qid,opt){
+  const q=buildLearnQuizzes().find(x=>x.id===qid);
+  const ans=currentProblem.learnState.answers[qid] || [];
+  if(q.type==='single') currentProblem.learnState.answers[qid]=[opt];
+  else currentProblem.learnState.answers[qid]=ans.includes(opt)?ans.filter(x=>x!==opt):[...ans,opt];
+  currentProblem.learnState.judged=false; currentProblem.learnState.showAnswer=false; renderLearn();
+}
+function renderLearnResult(q, ans){
+  const want=[...q.correct].sort().join('|'); const got=[...ans].sort().join('|');
+  return want===got?'<span class="ok">正解</span>':'<span class="bad">不正解</span> 正解：'+q.correct.join('、');
+}
+
+
+const TARGET_R=74;
+function getChoiceLayout(kefkaAngle, variant='half'){
+  const dir=coord(kefkaAngle,1.0);
+  const kx=(dir.x-300), ky=(dir.y-300); const klen=Math.hypot(kx,ky)||1; const ukx=kx/klen, uky=ky/klen;
+  const px=-uky, py=ukx;
+  const awayX=-ukx, awayY=-uky;
+
+  if(variant==='half'){
+    const roleButtonR=14;
+    const roleR=Math.round(TARGET_R*1.5 + roleButtonR);
+    const stackR=TARGET_R+18;
+    function mk(side){
+      const dir=side==='L'?-1:1;
+      const stackPt=coordRadius(kefkaAngle+dir*90, stackR);
+      const hPt=coordRadius(kefkaAngle+dir*90, roleR);
+      const tPt=coordRadius(kefkaAngle+dir*45, roleR);
+      const dPt=coordRadius(kefkaAngle+dir*135, roleR);
+      return {
+        stack:{x:stackPt.x, y:stackPt.y, label:'全員', id:'stack'+side},
+        H:{x:hPt.x, y:hPt.y, label:'H', id:side+'H'},
+        T:{x:tPt.x, y:tPt.y, label:'T', id:side+'T'},
+        D:{x:dPt.x, y:dPt.y, label:'D', id:side+'D'}
+      };
+    }
+    const x1=300-awayX*280, y1=300-awayY*280, x2=300+awayX*280, y2=300+awayY*280;
+    return {L:mk('L'), R:mk('R'), axis:{x1,y1,x2,y2}, ukx,uky,px,py,awayX,awayY};
+  }
+
+  if(variant==='quarter'){
+    const opp=(kefkaAngle+180)%360;
+    const leftA=(opp-45+360)%360, rightA=(opp+45)%360;
+    function towardSign(baseAngle,targetAngle){ const d=((targetAngle-baseAngle+540)%360)-180; return d>=0?1:-1; }
+    function mk(side, baseAngle){
+      const sPos=coord(baseAngle,0.53), hPos=coord(baseAngle,0.72);
+      const sign=towardSign(baseAngle,kefkaAngle);
+      const T=coord(baseAngle+sign*20,0.78), D=coord(baseAngle-sign*20,0.78);
+      return {stack:{x:sPos.x,y:sPos.y,label:'全員',id:'stack'+side}, H:{x:hPos.x,y:hPos.y,label:'H',id:side+'H'}, T:{x:T.x,y:T.y,label:'T',id:side+'T'}, D:{x:D.x,y:D.y,label:'D',id:side+'D'}};
+    }
+    const x1=300-awayX*280, y1=300-awayY*280, x2=300+awayX*280, y2=300+awayY*280;
+    return {L:mk('L',leftA), R:mk('R',rightA), axis:{x1,y1,x2,y2}, ukx,uky,px,py,awayX,awayY};
+  }
+
+  const x1=300-awayX*280, y1=300-awayY*280, x2=300+awayX*280, y2=300+awayY*280;
+  return {axis:{x1,y1,x2,y2}, ukx,uky,px,py,awayX,awayY};
+}
+
+
+
+function pointToAngle(x,y){
+  return (Math.atan2(y-300,x-300)*180/Math.PI + 90 + 360) % 360;
+}
+function getBeam10GuideLayout(slide){
+  const dir=coord(slide.kefka.angle,1.0);
+  const kx=(dir.x-300), ky=(dir.y-300); const klen=Math.hypot(kx,ky)||1;
+  const ukx=kx/klen, uky=ky/klen;
+  const px=-uky, py=ukx;
+  const beamHalf=138;
+  const otherOffset=beamHalf+42;
+  const otherDepth=8;
+  const otherLeft={x:300-px*otherOffset+ukx*otherDepth, y:300-py*otherOffset+uky*otherDepth};
+  const otherRight={x:300+px*otherOffset+ukx*otherDepth, y:300+py*otherOffset+uky*otherDepth};
+  const activeHole=slide.active && slide.active[0] ? slide.active[0] : {x:300,y:300};
+  const holeAngle=pointToAngle(activeHole.x, activeHole.y);
+  const guideAngle=(holeAngle+22.5)%360;
+  const guide=coordRadius(guideAngle,238);
+  return {otherLeft,otherRight,guide};
+}
+
+function getDummingBokuchinLayout(kefkaAngle){
+  const dir=coord(kefkaAngle,1.0);
+  const kx=(dir.x-300), ky=(dir.y-300); const klen=Math.hypot(kx,ky)||1;
+  const ukx=kx/klen, uky=ky/klen;
+  const px=-uky, py=ukx;
+  const awayX=-ukx, awayY=-uky;
+  const beamHalf=138;
+  const sideOffset=beamHalf+22;
+  const tDepth=34;
+  const hdDepth=104;
+  const leftT={x:300-px*sideOffset+awayX*tDepth, y:300-py*sideOffset+awayY*tDepth};
+  const rightT={x:300+px*sideOffset+awayX*tDepth, y:300+py*sideOffset+awayY*tDepth};
+  const leftHD={x:300-px*sideOffset+awayX*hdDepth, y:300-py*sideOffset+awayY*hdDepth};
+  const rightHD={x:300+px*sideOffset+awayX*hdDepth, y:300+py*sideOffset+awayY*hdDepth};
+  const x1=300-awayX*280, y1=300-awayY*280, x2=300+awayX*280, y2=300+awayY*280;
+  return {leftT,rightT,leftHD,rightHD,axis:{x1,y1,x2,y2},awayX,awayY,px,py};
+}
+
+function getDummingBintaLayout(kefkaAngle){
+  const targetR=TARGET_R;
+  const stackButtonR=16;
+  const roleButtonR=14;
+  const stackCenterR=targetR + stackButtonR;
+  const outerCircleR=targetR * 1.5;
+  const roleCenterR=outerCircleR + roleButtonR;
+  function mk(side){
+    const baseAngle=side==='L' ? (kefkaAngle+135)%360 : (kefkaAngle+225)%360;
+    const hAngle=baseAngle;
+    const tAngle=side==='L' ? (kefkaAngle+112.5)%360 : (kefkaAngle+247.5)%360;
+    const dAngle=side==='L' ? (kefkaAngle+157.5)%360 : (kefkaAngle+202.5)%360;
+    const stackPt=coordRadius(baseAngle, stackCenterR);
+    const hPt=coordRadius(hAngle, roleCenterR);
+    const tPt=coordRadius(tAngle, roleCenterR);
+    const dPt=coordRadius(dAngle, roleCenterR);
+    return {
+      stack:{x:stackPt.x, y:stackPt.y, label:'全員', id:'stack'+side},
+      H:{x:hPt.x, y:hPt.y, label:'H', id:side+'H'},
+      T:{x:tPt.x, y:tPt.y, label:'T', id:side+'T'},
+      D:{x:dPt.x, y:dPt.y, label:'D', id:side+'D'}
+    };
+  }
+  const dir=coord(kefkaAngle,1.0);
+  const awayX=-(dir.x-300)/(Math.hypot(dir.x-300,dir.y-300)||1);
+  const awayY=-(dir.y-300)/(Math.hypot(dir.x-300,dir.y-300)||1);
+  const x1=300-awayX*280, y1=300-awayY*280, x2=300+awayX*280, y2=300+awayY*280;
+  return {L:mk('L'), R:mk('R'), axis:{x1,y1,x2,y2}};
+}
+
+function getJitanda1Layout(slide){
+  const prep=getJitandaPrepLayout(slide.kefka.angle);
+  const towerR=90;
+  const towerB=coordRadius((slide.kefka.angle+90)%360, towerR);
+  const towerD=coordRadius((slide.kefka.angle+270)%360, towerR);
+  return {prep, towerB, towerD};
+}
+
+function getJitandaPrepLayout(kefkaAngle){
+  const radius=TARGET_R+18;
+  return {
+    pair4:coordRadius((kefkaAngle+315)%360, radius),
+    pair1:coordRadius((kefkaAngle+45)%360, radius),
+    pair3:coordRadius((kefkaAngle+225)%360, radius),
+    pair2:coordRadius((kefkaAngle+135)%360, radius)
+  };
+}
+
+function pairSlotForRole(role){
+  if(['MT','H1'].includes(role)) return '4';
+  if(['ST','H2'].includes(role)) return '1';
+  if(['D1','D3'].includes(role)) return '3';
+  return '2';
+}
+function isHeadsplitRoleGroup(role, headsplitRole){
+  const kind=ROLE_KIND[role];
+  return headsplitRole==='TH' ? (kind==='T' || kind==='H') : kind==='D';
+}
+
+function getCorrectChoiceForRole(slide, role){
+  const party=currentProblem.party.find(p=>p.role===role);
+  const kind=ROLE_KIND[role];
+  if(slide.kind==='prep-tank') return kind==='T' ? 'exTank' : 'hdWait';
+  if(slide.kind==='prep-split') return ['MT','H2','D1','D2'].includes(role) ? 'chaosGroup' : 'exGroup';
+  if(slide.kind==='prep-marker') return role==='MT' ? 'markerTankNorth' : 'markerPartySouth';
+  if(slide.kind==='beam' && slide.beam===10) return party.marker==='禁止2' ? (slide.answerMap[party.marker] || 'wait') : 'other10';
+  if(slide.kind==='beam') return slide.answerMap[party.marker] || 'wait';
+  if(slide.kind==='binta-start'){
+    const side=safeSideFromHand(slide.hand)==='右'?'R':'L';
+    if(bintaActionFromHand(slide.hand)==='頭割り') return 'stack'+side;
+    return side + kind;
+  }
+  if(slide.kind==='dumming-binta'){
+    const side=dummingBintaSide(slide.hand);
+    if(dummingBintaAction(slide.hand)==='頭割り') return 'stack'+side;
+    return side + kind;
+  }
+  if(slide.kind==='vh-binta'){
+    const side=safeSideFromHand(slide.hand)==='右'?'R':'L';
+    if(bintaActionFromHand(slide.hand)==='頭割り') return 'stack'+side;
+    return side + kind;
+  }
+  if(slide.kind==='thunder1') return role==='ST' ? 'tankNear' : 'wait';
+  if(slide.kind==='thunder2') return role==='MT' ? 'tankNear' : 'wait';
+  if(slide.kind==='dumming-bokuchin') return 'wait';
+  if(slide.kind==='whitehole' || slide.kind==='blizzaga') return 'center';
+  if(slide.kind==='jitanda-prep') return 'pair'+pairSlotForRole(role);
+  if(slide.kind==='jitanda1'){
+    const slot=pairSlotForRole(role);
+    if(isHeadsplitRoleGroup(role, slide.headsplitRole)) return 'headsplit';
+    return ['1','2'].includes(slot) ? 'towerB' : 'towerD';
+  }
+  if(slide.kind==='jitanda2'){
+    const slot=pairSlotForRole(role);
+    if(isHeadsplitRoleGroup(role, slide.headsplitRole)) return ['1','2'].includes(slot) ? 'towerB' : 'towerD';
+    return 'center';
+  }
+  if(slide.kind==='towers') return 'scatter';
+  return null;
+}
+function getCorrectChoiceForSlide(slide){ return getCorrectChoiceForRole(slide, selfRole); }
+function getAllCorrectChoices(slide){ return [...new Set(ROLES.map(r=>getCorrectChoiceForRole(slide,r)).filter(Boolean))]; }
+function getCorrectMarkerChoiceForRole(slide, role){ const party=currentProblem.party.find(p=>p.role===role); return markerKind(party.marker); }
+function getCorrectMarkerChoiceForSlide(slide){ return getCorrectMarkerChoiceForRole(slide, selfRole); }
+
+
+function getVhAreas(slide){
+  const facing=(slide.kefka.angle+45+360)%360;
+  const defs=[
+    {name:'front', label:'前', angle:facing},
+    {name:'right', label:'右', angle:facing+90},
+    {name:'back', label:'後', angle:facing+180},
+    {name:'left', label:'左', angle:facing+270}
+  ].map(a=>({...a, angle:(a.angle+360)%360, c:coord(a.angle,0.47), far:coord(a.angle,0.76)}));
+  return {facing, defs};
+}
+
+function getVhBintaLayout(slide){
+  const {defs}=getVhAreas(slide);
+  const stackCenterR=TARGET_R+16;
+  const roleCenterR=TARGET_R*1.5+14;
+  const roleAngles={
+    front:{t:-22.5,d:22.5},
+    right:{t:-22.5,d:22.5},
+    back:{t:22.5,d:-22.5},
+    left:{t:22.5,d:-22.5}
+  };
+  return defs.map(d=>{
+    const offs=roleAngles[d.name] || {t:-22.5,d:22.5};
+    const stack=coordRadius(d.angle,stackCenterR);
+    const H=coordRadius(d.angle,roleCenterR);
+    const T=coordRadius(d.angle+offs.t,roleCenterR);
+    const D=coordRadius(d.angle+offs.d,roleCenterR);
+    return {...d, stack,H,T,D};
+  });
+}
+function getVhFirstAreas(slide){
+  const {defs}=getVhAreas(slide);
+  const firstNames = slide.vh==='vertical' ? ['right','left'] : ['front','back'];
+  const raised = slide.hand==='right' ? '左' : '右';
+  const candidates=defs.filter(d=>firstNames.includes(d.name));
+  const picked=candidates.find(d=>kefkaSideOfPoint(d.c.x,d.c.y,slide.kefka.angle)!==raised);
+  return [picked ? picked.name : candidates[0].name];
+}
+function getVhFirstArea(slide){
+  return getVhFirstAreas(slide)[0];
+}
+function kefkaSideOfPoint(x,y,kefkaAngle){
+  const k=coord(kefkaAngle,1.0);
+  const vx=300-k.x, vy=300-k.y; const len=Math.hypot(vx,vy)||1;
+  const ux=vx/len, uy=vy/len;
+  const rx=-uy, ry=ux;
+  const px=x-300, py=y-300;
+  return (px*rx+py*ry)>=0 ? '左' : '右';
+}
+function getVhFinalArea(slide, role){
+  const {defs}=getVhAreas(slide);
+  const finalNames = slide.vh==='vertical' ? ['front','back'] : ['right','left'];
+  const safe=safeSideFromHand(slide.hand);
+  const candidates=defs.filter(d=>finalNames.includes(d.name));
+  const matched=candidates.find(d=>kefkaSideOfPoint(d.c.x,d.c.y,slide.kefka.angle)===safe);
+  return (matched || candidates[0]).name;
+}
+function vhSectorPath(angle){
+  const r=280, a1=(angle-45-90)*Math.PI/180, a2=(angle+45-90)*Math.PI/180;
+  const x1=300+r*Math.cos(a1), y1=300+r*Math.sin(a1), x2=300+r*Math.cos(a2), y2=300+r*Math.sin(a2);
+  return `M300,300 L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`;
+}
+
+function renderMapFor(slide, mode){
+  const practiceCtx = mode==='practice' ? getPracticeRenderContext(slide) : null;
+  const showAnswer=!!slide.showAnswer || !!(practiceCtx && practiceCtx.showAnswer);
+  const selfCorrect=getRenderedCorrectChoiceForSlide(slide, practiceCtx);
+  const allCorrect=getRenderedAllCorrectChoices(slide, practiceCtx);
+  const kef=coord(slide.kefka.angle,1.07);
+  const chaosFacing=(slide.kind==='dumming-binta'||slide.kind==='dumming-bokuchin')?slide.kefka.angle:(slide.kind==='vh-binta'?slide.kefka.angle+45:0);
+  const faceEnd=coord(chaosFacing,0.22);
+  const colors={A:'#ff6767','1':'#ff6767','B':'#ffe66d','2':'#ffe66d','C':'#6ec5ff','3':'#6ec5ff','D':'#d29bff','4':'#d29bff'};
+  const markSpec=[['A',0],['1',45],['B',90],['2',135],['C',180],['3',225],['D',270],['4',315]];
+  const marks=markSpec.map(([t,a])=>{const c=coord(a,.77); return `<text class="marktxt" x="${c.x}" y="${c.y+6}" text-anchor="middle" fill="${colors[t]}">${t}</text>`;}).join('');
+  const layout=getChoiceLayout(slide.kefka.angle, (slide.kind==='binta-start'||slide.kind==='vh-binta')?'half':'quarter');
+  const showHazard = mode!=='practice' || showAnswer || slide.judged;
+  const me=getSelfParty();
+  const slideNo=SLIDES.findIndex(s=>s.id===slide.id)+1;
+  let holes='', overlays='', options='';
+
+  function ring(id,x,y,r=16,label=''){
+    const selected=slide.selected===id;
+    const selectedRing=selected?`<circle class="optChoice optSelected" cx="${x}" cy="${y}" r="${r}"></circle>`:'';
+    const wrongRing=(showAnswer && selected && id!==selfCorrect)?`<circle class="optChoice optWrong" cx="${x}" cy="${y}" r="${r}"></circle>`:'';
+    const glow=(showAnswer && allCorrect.includes(id))?`<circle class="correctGlow" cx="${x}" cy="${y}" r="${r+3}"></circle>`:'';
+    const answerOther=(showAnswer && id!==selfCorrect && allCorrect.includes(id))?`<circle class="answerOther" cx="${x}" cy="${y}" r="${r+5}"></circle>`:'';
+    const answerSelf=(showAnswer && id===selfCorrect)?`<circle class="answerSelf" cx="${x}" cy="${y}" r="${r+8}"></circle>`:'';
+    const base=`<circle class="optChoice" data-opt="${id}" cx="${x}" cy="${y}" r="${r}"></circle>`;
+    const hideLabel=(mode==='practice' && !showAnswer && label!=='待機');
+    const txt=(label && !hideLabel)?`<text class="optLabel" x="${x}" y="${y+1}" text-anchor="middle">${label}</text>`:'';
+    return glow+answerOther+answerSelf+base+selectedRing+wrongRing+txt;
+  }
+  function roleSet(set){
+    return ring(set.stack.id,set.stack.x,set.stack.y,16,set.stack.label)+
+      ring(set.T.id,set.T.x,set.T.y,14,set.T.label)+
+      ring(set.H.id,set.H.x,set.H.y,14,set.H.label)+
+      ring(set.D.id,set.D.x,set.D.y,14,set.D.label);
+  }
+
+
+  if(slide.kind==='prep-tank'){
+    const tankLabel=(practiceCtx&&practiceCtx.prepTankRole)?practiceCtx.prepTankRole:'T';
+    if(!showAnswer) overlays += `<rect class="castBox" x="236" y="44" width="128" height="34" rx="10"></rect><text class="vhLabel" x="300" y="68" text-anchor="middle">サンダガ</text>`;
+    options += ring('exTank',300,182,18,tankLabel);
+    options += ring('hdWait',300,340,18,'HD');
+  }
+
+  if(slide.kind==='prep-split'){
+    if(!showAnswer) overlays += `<rect class="castBox" x="236" y="44" width="128" height="34" rx="10"></rect><text class="vhLabel" x="300" y="68" text-anchor="middle">決戦2</text>`;
+    options += ring('chaosGroup',300,340,20,'カ');
+    options += ring('exGroup',300,190,20,'エ');
+    if(showAnswer){
+      overlays += `<text x="300" y="315" text-anchor="middle" fill="#ffe680" font-size="12" font-weight="800">MT/H2/D1/D2</text>`;
+      overlays += `<text x="300" y="165" text-anchor="middle" fill="#ffe680" font-size="12" font-weight="800">ST/H1/D3/D4</text>`;
+    }
+  }
+
+  if(slide.kind==='prep-marker'){
+    const markerCorrect=getCorrectMarkerChoiceForSlide(slide);
+    const me=getSelfParty();
+    function posRing(id,x,y,r=18,label=''){
+      const selected=slide.selectedPos===id;
+      const glow=(showAnswer && allCorrect.includes(id))?`<circle class="correctGlow" cx="${x}" cy="${y}" r="${r+3}"></circle>`:'';
+      const answerOther=(showAnswer && id!==selfCorrect && allCorrect.includes(id))?`<circle class="answerOther" cx="${x}" cy="${y}" r="${r+5}"></circle>`:'';
+      const answerSelf=(showAnswer && id===selfCorrect)?`<circle class="answerSelf" cx="${x}" cy="${y}" r="${r+8}"></circle>`:'';
+      const selectedRing=selected?`<circle class="optChoice optSelected" cx="${x}" cy="${y}" r="${r}"></circle>`:'';
+      const wrongRing=(showAnswer && selected && id!==selfCorrect)?`<circle class="optChoice optWrong" cx="${x}" cy="${y}" r="${r}"></circle>`:'';
+      const hideLabel=(mode==='practice' && !showAnswer && label!=='待機');
+      const txt=(!hideLabel && label)?`<text class="optLabel" x="${x}" y="${y+1}" text-anchor="middle">${label}</text>`:'';
+      return glow+answerOther+answerSelf+`<circle class="optChoice" data-pos-opt="${id}" cx="${x}" cy="${y}" r="${r}"></circle>`+selectedRing+wrongRing+txt;
+    }
+    function markerButton(id,x,y,w,h,label){
+      const selected=slide.selectedMarker===id;
+      const correct=showAnswer && id===markerCorrect;
+      const wrong=showAnswer && selected && id!==markerCorrect;
+      const cls=['markerChoiceRect', selected?'selected':'', correct?'correct':'', wrong?'wrong':''].filter(Boolean).join(' ');
+      return `<g data-marker-opt="${id}"><rect class="${cls}" x="${x-w/2}" y="${y-h/2}" width="${w}" height="${h}" rx="8"></rect><text class="markerChoiceText" x="${x}" y="${y+1}" text-anchor="middle">${label}</text></g>`;
+    }
+    const isMarkerPosPhase = !practiceCtx || practiceCtx.key==='prepMarkerPos';
+    const showPosChoice = isMarkerPosPhase;
+    const showMarkerChoice = !practiceCtx || (practiceCtx.key==='prepMarkerDice' && practiceCtx.showPrepMarkerChoices);
+    overlays += `<rect class="castBox" x="236" y="44" width="128" height="34" rx="10"></rect><text class="vhLabel" x="300" y="68" text-anchor="middle">サンダガ</text>`;
+    if(showMarkerChoice) overlays += `<rect class="markerSelfBox" x="220" y="450" width="160" height="34" rx="10"></rect><text class="markerSelfText" x="300" y="468" text-anchor="middle">自分：サイコロ${me.dice}</text>`;
+    if(showPosChoice) options += posRing('markerTankNorth',300,246,18,'MT');
+    if(showPosChoice) options += posRing('markerPartySouth',300,394,18,'他');
+    if(showMarkerChoice) options += markerButton('攻撃',202,528,74,34,'攻撃') + markerButton('バインド',300,528,86,34,'バインド') + markerButton('禁止',402,528,74,34,'禁止');
+  }
+
+
+  if(slide.kind==='beam'){
+    const holeMarks={}; Object.entries(slide.answerMap).forEach(([m,id])=>{ if(id){ (holeMarks[id]||(holeMarks[id]=[])).push(markerShort(m)); }});
+    holes = slide.visible.map(h=>{
+      const active=slide.active.some(a=>a.id===h.id);
+      const sel=slide.selected===h.id;
+      const glow=(showAnswer && allCorrect.includes(h.id))?`<circle class="correctGlow" cx="${h.x}" cy="${h.y}" r="28"></circle>`:'';
+      const other=(showAnswer && h.id!==selfCorrect && allCorrect.includes(h.id))?`<circle class="answerOther" cx="${h.x}" cy="${h.y}" r="30"></circle>`:'';
+      const self=(showAnswer && h.id===selfCorrect)?`<circle class="answerSelf" cx="${h.x}" cy="${h.y}" r="34"></circle>`:'';
+      const selected=sel?`<circle class="optChoice optSelected" cx="${h.x}" cy="${h.y}" r="30"></circle>`:'';
+      const wrong=(showAnswer && sel && h.id!==selfCorrect)?`<circle class="optChoice optWrong" cx="${h.x}" cy="${h.y}" r="30"></circle>`:'';
+      const activeRing=active?`<circle class="bhActive" cx="${h.x}" cy="${h.y}" r="27"></circle>`:'';
+      const label=(showAnswer && holeMarks[h.id]) ? holeMarks[h.id].map((mk,idx)=>`<text class="bhMarkText" x="${h.x}" y="${h.y-6+idx*14}" text-anchor="middle" fill="${mk.startsWith('攻')?'#ff9a3d':mk.startsWith('バ')?'#b58cff':'#ff6b75'}">${mk}</text>`).join('') : '';
+      return `<g><circle class="hole" data-opt="${h.id}" cx="${h.x}" cy="${h.y}" r="24"></circle>${activeRing}${glow}${other}${self}${selected}${wrong}${label}</g>`;
+    }).join('');
+    if(slide.beam===10){
+      const otherLeft=coordRadius((slide.kefka.angle+270)%360,180);
+      const otherRight=coordRadius((slide.kefka.angle+90)%360,180);
+      if(showHazard) overlays += `<path class="bokuchin" d="${beamRectPath(slide.kefka.angle,276)}"></path>`;
+      options += ring('other10',otherLeft.x,otherLeft.y,18,'他');
+      options += ring('other10',otherRight.x,otherRight.y,18,'他');
+    }else{
+      options += ring('wait',300,300,16,'待機');
+    }
+  }
+
+
+  if(slide.kind==='binta-start'){
+    overlays += `<line class="axisThin" x1="${layout.axis.x1}" y1="${layout.axis.y1}" x2="${layout.axis.x2}" y2="${layout.axis.y2}"></line>`;
+    overlays += bintaAnswerFanPaths(slide, layout, showHazard);
+    options += roleSet(layout.L)+roleSet(layout.R);
+  }
+
+  if(slide.kind==='dumming-binta'){
+    const dLayout=getDummingBintaLayout(slide.kefka.angle);
+    overlays += `<line class="axisThin" x1="${dLayout.axis.x1}" y1="${dLayout.axis.y1}" x2="${dLayout.axis.x2}" y2="${dLayout.axis.y2}"></line>`;
+    if(showHazard) overlays += `<path class="aoe" d="${halfRoomPath(slide.kefka.angle)}"></path>`;
+    overlays += bintaAnswerFanPaths(slide, dLayout, showHazard);
+    options += roleSet(dLayout.L)+roleSet(dLayout.R);
+  }
+
+  if(slide.kind==='thunder1'){
+    options += ring('tankNear',300+layout.ukx*55,300+layout.uky*55,18,'ST') + ring('wait',300-layout.ukx*120,300-layout.uky*120,18,'待機');
+  }
+  if(slide.kind==='thunder2'){
+    options += ring('tankNear',300+layout.ukx*55,300+layout.uky*55,18,'MT') + ring('wait',300-layout.ukx*120,300-layout.uky*120,18,'待機');
+  }
+
+  if(slide.kind==='dumming-bokuchin'){
+    const bokLayout=getDummingBokuchinLayout(slide.kefka.angle);
+    overlays += `<line class="axisThin" x1="${bokLayout.axis.x1}" y1="${bokLayout.axis.y1}" x2="${bokLayout.axis.x2}" y2="${bokLayout.axis.y2}"></line>`;
+    if(showHazard) overlays += `<path class="aoe" d="${halfRoomPath(slide.kefka.angle)}"></path>`;
+    if(showHazard) overlays += `<path class="bokuchin" d="${beamRectPath(slide.kefka.angle,276)}"></path>`;
+    options += ring('wait',bokLayout.leftHD.x,bokLayout.leftHD.y,18,'待機') + ring('wait',bokLayout.rightHD.x,bokLayout.rightHD.y,18,'待機');
+  }
+
+  if(slide.kind==='whitehole'){
+    overlays += `<rect class="castBox" x="214" y="44" width="172" height="34" rx="10"></rect><text class="vhLabel" x="300" y="68" text-anchor="middle">ホワイトホール</text><text x="300" y="92" text-anchor="middle" fill="#e5edf7" font-size="12" font-weight="900">HP満タンにする</text>`;
+    options += ring('center',300,340,18,'中央');
+  }
+
+
+  if(slide.kind==='vh-binta'){
+    const vh=getVhAreas(slide);
+    const vhLayout=getVhBintaLayout(slide);
+    const firstCorrects=getRenderedVhFirstAreas(slide, practiceCtx);
+    const showVhAreas = !(practiceCtx && practiceCtx.key==='vhSecond');
+    const lineA1=coord(vh.facing+45,1.05), lineA2=coord(vh.facing+225,1.05);
+    const lineB1=coord(vh.facing+135,1.05), lineB2=coord(vh.facing+315,1.05);
+    overlays += `<line class="castBlue2" x1="${lineA1.x}" y1="${lineA1.y}" x2="${lineA2.x}" y2="${lineA2.y}"></line><line class="castBlue2" x1="${lineB1.x}" y1="${lineB1.y}" x2="${lineB2.x}" y2="${lineB2.y}"></line>`;
+    if(showVhAreas){
+      overlays += vhLayout.map(d=>{
+        const selected=slide.selectedVhSafe===d.name;
+        const answer=showAnswer && firstCorrects.includes(d.name);
+        const selectedCorrect=showAnswer && selected && firstCorrects.includes(d.name);
+        const selectedWrong=showAnswer && selected && !firstCorrects.includes(d.name);
+        const cls=['vhPickArea',selected?'selected':'',answer?'answer':'',selectedCorrect?'correct':'',selectedWrong?'wrong':''].filter(Boolean).join(' ');
+        return `<path class="${cls}" data-vh-safe-opt="${d.name}" d="${vhSectorPath(d.angle)}"></path>`;
+      }).join('');
+    }
+    overlays += vhCastOverlay(chaosFacing, slide.vh);
+    overlays += vhBintaAnswerFanPaths(slide, showHazard);
+    options += roleSet(layout.L)+roleSet(layout.R);
+  }
+
+  if(slide.kind==='blizzaga'){
+    overlays += `<circle class="stack" cx="300" cy="300" r="70"></circle>`;
+    options += ring('center',300,300,18,'中央');
+  }
+  if(slide.kind==='jitanda-prep'){
+    const prepLayout=getJitandaPrepLayout(slide.kefka.angle);
+    const boxPt=slide.headsplitRole==='TH' ? prepLayout.pair4 : prepLayout.pair2;
+    overlays += `<rect class="castBox" x="${boxPt.x-54}" y="${boxPt.y-42}" width="108" height="26" rx="8"></rect><text x="${boxPt.x}" y="${boxPt.y-24}" text-anchor="middle" fill="#e5edf7" font-size="12" font-weight="900">頭割り（${slide.headsplitRole==='TH'?'TH':'DPS'}）</text>`;
+    options += ring('pair4',prepLayout.pair4.x,prepLayout.pair4.y,22,'MT/H1')
+      + ring('pair1',prepLayout.pair1.x,prepLayout.pair1.y,22,'ST/H2')
+      + ring('pair3',prepLayout.pair3.x,prepLayout.pair3.y,22,'D1/D3')
+      + ring('pair2',prepLayout.pair2.x,prepLayout.pair2.y,22,'D2/D4');
+  }
+  if(slide.kind==='jitanda1'){
+    const j1=getJitanda1Layout(slide);
+    const hp=j1.prep['pair'+slide.headsplitPair];
+    const boxPt=slide.headsplitRole==='TH' ? j1.prep.pair4 : j1.prep.pair2;
+    overlays += `<circle class="tower" cx="${j1.towerD.x}" cy="${j1.towerD.y}" r="34"></circle><circle class="tower" cx="${j1.towerB.x}" cy="${j1.towerB.y}" r="34"></circle>`;
+    overlays += `<rect class="castBox" x="${boxPt.x-54}" y="${boxPt.y-42}" width="108" height="26" rx="8"></rect><text x="${boxPt.x}" y="${boxPt.y-24}" text-anchor="middle" fill="#e5edf7" font-size="12" font-weight="900">頭割り（${slide.headsplitRole==='TH'?'TH':'DPS'}）</text>`;
+    options += ring('headsplit',300,300,20,'頭割り') + ring('towerB',j1.towerB.x,j1.towerB.y,18,'塔') + ring('towerD',j1.towerD.x,j1.towerD.y,18,'塔');
+  }
+  if(slide.kind==='jitanda2'){
+    const j2=getJitanda1Layout(slide);
+    overlays += `<circle class="tower" cx="${j2.towerD.x}" cy="${j2.towerD.y}" r="34"></circle><circle class="tower" cx="${j2.towerB.x}" cy="${j2.towerB.y}" r="34"></circle>`;
+    options += ring('center',300,300,20,'頭割り') + ring('towerB',j2.towerB.x,j2.towerB.y,18,'塔') + ring('towerD',j2.towerD.x,j2.towerD.y,18,'塔');
+  }
+  if(slide.kind==='towers'){
+    const scatterPt=coordRadius(slide.kefka.angle,210);
+    overlays += `<circle class="aoe" cx="300" cy="300" r="116"></circle><text x="300" y="424" text-anchor="middle" fill="#e5edf7" font-size="12" font-weight="900">動く（ブリザガ対策）</text>`;
+    options += ring('scatter',scatterPt.x,scatterPt.y,18,'散');
+  }
+
+  const hx=300-kef.x, hy=300-kef.y, hlen=Math.hypot(hx,hy)||1, hux=hx/hlen, huy=hy/hlen, lx=huy, ly=-hux, rx=-huy, ry=hux;
+  const handSvg=(practiceCtx && practiceCtx.hideHand)?'':(slide.hand?`<line class="hand" x1="${kef.x+(slide.hand==='left'?lx:rx)*15}" y1="${kef.y+(slide.hand==='left'?ly:ry)*15}" x2="${kef.x+(slide.hand==='left'?lx:rx)*52+hux*10}" y2="${kef.y+(slide.hand==='left'?ly:ry)*52+huy*10}"></line>`:'');
+  const exSvg=slide.exdeath&&slide.exdeath.pos?`<circle cx="${slide.exdeath.pos.x}" cy="${slide.exdeath.pos.y}" r="48" fill="none" stroke="#9b74ff" stroke-width="2.4"></circle><text x="${slide.exdeath.pos.x}" y="${slide.exdeath.pos.y+4}" text-anchor="middle" fill="#d9c3ff" font-size="12" font-weight="900">エクスデス</text>`:'';
+  const centerExSvg=slide.exdeath&&slide.exdeath.center?`<circle cx="300" cy="300" r="44" fill="none" stroke="#9b74ff" stroke-width="2.4"></circle><text x="300" y="280" text-anchor="middle" fill="#d9c3ff" font-size="12" font-weight="900">エクスデス</text>`:'';
+  const markerCorner=slideNo>=4?`<rect class="markerCornerBox ${getMarkerKindClass(me.marker)}" x="18" y="18" width="120" height="30" rx="10"></rect><text class="markerCornerText" x="78" y="37" text-anchor="middle">${me.marker}</text>`:'';
+  const answerState = showAnswer ? (isSlideCorrect(slide, practiceCtx) ? 'ok' : 'bad') : '';
+  const answerBadge = showAnswer ? `<rect class="answerBox ${answerState}" x="215" y="180" width="170" height="54" rx="10"></rect><text class="answerBoxText ${answerState}" x="300" y="214" text-anchor="middle">${answerState==='ok'?'正解':'不正解'}</text>` : '';
+  const kefSvg=(slide.kind.startsWith('prep-'))?'' : `<circle class="kefka" cx="${kef.x}" cy="${kef.y}" r="24"></circle>${handSvg}<text x="${kef.x}" y="${kef.y+4}" text-anchor="middle" fill="#fff" font-size="12" font-weight="900">ケフカ</text>`;
+
+  return `<svg viewBox="0 0 600 600"><defs><radialGradient id="fieldGrad"><stop offset="0" stop-color="#3b5873"></stop><stop offset="1" stop-color="#14263a"></stop></radialGradient></defs>
+  <circle class="fieldbg" cx="300" cy="300" r="280"></circle>
+  <circle class="targetCircle" cx="300" cy="300" r="74"></circle>${centerExSvg}${markerCorner}${answerBadge}
+  ${marks}${overlays}
+  <line class="face" x1="300" y1="300" x2="${faceEnd.x}" y2="${faceEnd.y}"></line><text x="300" y="306" text-anchor="middle" fill="#ff9a3d" font-size="16" font-weight="900">カオス</text>
+  ${exSvg}${kefSvg}
+  ${holes}${options}</svg>`;
+}
+
+function beamRectPath(angle,width){
+  const rad=(angle-90)*Math.PI/180; const dx=Math.cos(rad), dy=Math.sin(rad); const px=-dy, py=dx; const L=360, W=width/2;
+  const x1=300+dx*L+px*W, y1=300+dy*L+py*W;
+  const x2=300+dx*L-px*W, y2=300+dy*L-py*W;
+  const x3=300-dx*L-px*W, y3=300-dy*L-py*W;
+  const x4=300-dx*L+px*W, y4=300-dy*L+py*W;
+  return `M${x1},${y1} L${x2},${y2} L${x3},${y3} L${x4},${y4} Z`;
+}
+
+function halfRoomPath(kefkaAngle){
+  const start=(kefkaAngle-90-90)*Math.PI/180, end=(kefkaAngle-90+90)*Math.PI/180; const r=285;
+  const x1=300+r*Math.cos(start), y1=300+r*Math.sin(start), x2=300+r*Math.cos(end), y2=300+r*Math.sin(end);
+  return `M300,300 L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z`;
+}
+function safeHalfPath(kefkaAngle){ return halfRoomPath((kefkaAngle+180)%360); }
+function centerFanPaths(kefkaAngle, hand, show){
+  if(!show) return '';
+  const fanAngles=[(kefkaAngle+90)%360,(kefkaAngle+315)%360,(kefkaAngle+270)%360,(kefkaAngle+225)%360];
+  return fanAngles.map(a=>sectorPath(a,16,280)).join('');
+}
+function bintaAnswerFanPaths(slide, layout, show){
+  if(!show) return '';
+  const isDumming=slide.kind==='dumming-binta';
+  const side=isDumming ? dummingBintaSide(slide.hand) : (safeSideFromHand(slide.hand)==='右' ? 'R' : 'L');
+  const area=layout[side];
+  if(!area) return '';
+  const action=isDumming ? dummingBintaAction(slide.hand) : bintaActionFromHand(slide.hand);
+  const pts=action==='頭割り' ? [area.stack] : [area.T, area.H, area.D];
+  return pts.map(pt=>sectorPath(pointToAngle(pt.x,pt.y),10,280)).join('');
+}
+
+function vhBintaAnswerFanPaths(slide, show){
+  if(!show) return '';
+  return bintaAnswerFanPaths(slide, getChoiceLayout(slide.kefka.angle,'half'), show);
+}
+
+function dummingBintaFanPaths(kefkaAngle, show){
+  if(!show) return '';
+  const fanAngles=[(kefkaAngle+135)%360,(kefkaAngle+247.5)%360,(kefkaAngle+202.5)%360,(kefkaAngle+225)%360];
+  return fanAngles.map(a=>sectorPath(a,16,280)).join('');
+}
+
+function sectorPath(centerAngle, widthDeg, r){
+  const a1=(centerAngle-widthDeg/2-90)*Math.PI/180;
+  const a2=(centerAngle+widthDeg/2-90)*Math.PI/180;
+  const x1=300+r*Math.cos(a1), y1=300+r*Math.sin(a1);
+  const x2=300+r*Math.cos(a2), y2=300+r*Math.sin(a2);
+  return `<path class="aoe" d="M300,300 L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z"></path>`;
+}
+
+function vhCastOverlay(facingAngle, kind){
+  const label = kind==='vertical' ? 'ヴァーティカル' : 'ホリゾンタル';
+  return `<rect class="castBox" x="214" y="44" width="172" height="34" rx="10"></rect><text class="vhLabel" x="300" y="68" text-anchor="middle">${label}</text>`;
+}
+function answerTextForSlide(slide){
+  const me=getSelfParty();
+  if(slide.kind==='prep-tank') return `位置確認では、MT/ST どちらもエクスデス内北寄りを正解扱いにしています。実践では1回目MT、2回目STが受けます。HDはカオス南側待機。`;
+  if(slide.kind==='prep-split') return `2ボス分担。カオス組は MT/H2/D1/D2、エクスデス組は ST/H1/D3/D4。`;
+  if(slide.kind==='prep-marker') return `エクスデスとカオスは中央で重なっています。MTはカオスのタゲサ内北寄り、それ以外はカオスのタゲサ外南寄り。青枠で自分のサイコロ${me.dice}を確認し、下の3択からつけるべきマーカー種類（${markerKind(me.marker)}）を選びます。`;
+  if(slide.kind==='beam' && slide.beam===10) return `ビーム10回目＋ぼくちん。ケフカは移動後の位置からぼくちん直線を出します。禁止2は他のビーム回と同じく担当ブラックホールを選び、それ以外はぼくちん直線の両側真ん中付近の安置（他）のどちらかを選びます。`;
+  if(slide.kind==='beam') return `更新Poikos資料対応：この回は ${slide.patternNo===1?'パターン1':'パターン2'}。外周3個＋中間4個＋内側4個の配置。${[1,2,9,10].includes(slide.beam)?'この組は出た玉が消えて次の線へ移動。':(slide.beam<=5?'3〜5回目は同じ外周3か所から出る。':'6〜8回目は同じ外周3か所から出る。')} あなた（${me.marker}）は ${slide.answerMap[me.marker] ? '担当ブラックホール' : '待機'} を選びます。`;
+  if(slide.kind==='binta-start') return `開始びんびんビンタ。ダミングはまだ来ない。${handLabel(slide.hand)}上げなので ${safeSideFromHand(slide.hand)}側で${bintaActionFromHand(slide.hand)}。`;
+  if(slide.kind==='dumming-binta') return `先にダミングをよけ、その後ビンタの処理。フィールド中央から見て、ケフカが手を挙げていない側が安置です。${handLabel(slide.hand)}上げなら${dummingBintaVisualSide(slide.hand)}側で${dummingBintaAction(slide.hand)==='頭割り'?'集合':dummingBintaAction(slide.hand)}。`;
+  if(slide.kind==='thunder1') return `サンダガ。STがカオス内側の正解、MT/H/D はタゲサ外で待機。`;
+  if(slide.kind==='thunder2') return `サンダガ。MTがカオス内側の正解、ST/H/D はタゲサ外で待機。`;
+  if(slide.kind==='dumming-bokuchin') return `ケフカはここで移動。ダミング半面とぼくちん直線の両方を避けた左右の安置を使います。左右どちらかの待機位置を選びます。`;
+  if(slide.kind==='whitehole') return `ホワイトホール。中央で詠唱を確認し、HPを満タンにします。`;
+  if(slide.kind==='vh-binta') return `${slide.vh==='vertical'?'ヴァーティカル':'ホリゾンタル'}を確認。1回目は水色扇の安置ならOK。2回目は ${handLabel(slide.hand)}上げに対応し、中央からケフカを見て${safeSideFromHand(slide.hand)}側で${bintaActionFromHand(slide.hand)}（右手なら全員、左手ならロール散会）を選びます。両方正解で正解扱いです。`;
+  if(slide.kind==='blizzaga') return `中央でブリザガを重ねる。`;
+  if(slide.kind==='jitanda-prep') return `どんどこ地団駄準備。ケフカ基準で 4:MT/H1、1:ST/H2、3:D1/D3、2:D2/D4 の4方向へペア散会します。`;
+  if(slide.kind==='jitanda1') return `どんどこ地団駄①。ケフカ基準で ${slide.headsplitPair} 方向に頭割り（${slide.headsplitRole==='TH'?'TH':'DPS'}）が表示されます。自分が頭割りロール側なら中央、そうでなければ 34組はD塔、12組はB塔へ。`;
+  if(slide.kind==='jitanda2') return `どんどこ地団駄②。塔は①と同じ位置。さっき頭割りした側は、ケフカ基準で元のペア位置が1/2ならB塔、3/4ならD塔へ。さっき塔踏みした4人は中央へ。`;
+  if(slide.kind==='towers') return `突出せよ＋タケノコ。中央にタケノコ円範囲が出るので、中心を避けてケフカ側の外周寄りへ散会。ブリザガ対策で動き続けます。`;
+  return '';
+}
+
+function isSlideCorrect(slide, ctx=null){
+  const correctChoice = getRenderedCorrectChoiceForSlide(slide, ctx);
+  if(slide.kind==='prep-marker'){
+    if(ctx && ctx.key==='prepMarkerPos') return slide.selectedPos===correctChoice;
+    if(ctx && ctx.key==='prepMarkerDice') return slide.selectedMarker===getCorrectMarkerChoiceForSlide(slide);
+    return slide.selectedPos===correctChoice && slide.selectedMarker===getCorrectMarkerChoiceForSlide(slide);
+  }
+  if(slide.kind==='vh-binta'){
+    if(ctx && ctx.key==='vhFirstOne') return getRenderedVhFirstAreas(slide, ctx).includes(slide.selectedVhSafe);
+    if(ctx && ctx.key==='vhSecond') return slide.selected===correctChoice;
+    return getRenderedVhFirstAreas(slide, ctx).includes(slide.selectedVhSafe) && slide.selected===correctChoice;
+  }
+  return slide.selected===correctChoice;
+}
+
+function judgeSlide(slide){
+  slide.judged=true; slide.showAnswer=true; return isSlideCorrect(slide);
+}
+function resetSlide(slide){ slide.selected=null; slide.selectedPos=null; slide.selectedMarker=null; slide.selectedVhSafe=null; slide.judged=false; slide.showAnswer=false; }
+
+function renderPosition(){
+  const slideMeta=SLIDES[posSlide]; const slide=currentProblem.slides[slideMeta.id];
+  const html=`
+    <div class="slideTop"><button class="smallbtn" id="posMiniPrev">＜</button><span class="slideNo">${posSlide+1}/${SLIDES.length}</span><button class="smallbtn" id="posMiniNext">＞</button></div>
+    <div class="mapwrap">
+      <div id="posMap">${renderMapFor(slide,'pos')}</div>
+      <div>
+        <div class="eventTitle">${slideMeta.title}</div>
+        <p class="legend">${answerTextForSlide(slide)}</p>
+        <div class="result">${slide.judged ? (isSlideCorrect(slide)?'<span class="ok">正解！</span>':'<span class="bad">不正解</span>') : ''}</div>
+        ${slide.showAnswer?`<div class="note">正解：${answerTextForSlide(slide)}</div>`:''}
+        <div class="row" style="margin-top:8px">
+          <button class="smallbtn" id="posPrev">前へ</button>
+          <button class="smallbtn" id="posJudge">判定</button>
+          <button class="smallbtn" id="posNext">次へ</button>
+          <button class="smallbtn" id="posShow">正解を表示</button>
+          <button class="smallbtn" id="posRestart">最初から</button>
+          <button class="smallbtn" id="posNewProb">新しい問題</button>
+          <button class="smallbtn" id="posPrevProb">一つ前の問題</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('pos').innerHTML=html;
+  bindMapClicks('posMap', slide, renderPosition);
+  document.getElementById('posPrev').onclick=()=>{ posSlide=Math.max(0,posSlide-1); renderPosition(); };
+  document.getElementById('posNext').onclick=()=>{ posSlide=Math.min(SLIDES.length-1,posSlide+1); renderPosition(); };
+  document.getElementById('posMiniPrev').onclick=()=>{ posSlide=Math.max(0,posSlide-1); renderPosition(); };
+  document.getElementById('posMiniNext').onclick=()=>{ posSlide=Math.min(SLIDES.length-1,posSlide+1); renderPosition(); };
+  document.getElementById('posJudge').onclick=()=>{ judgeSlide(slide); renderPosition(); };
+  document.getElementById('posShow').onclick=()=>{ slide.showAnswer=true; slide.judged=true; renderPosition(); };
+  document.getElementById('posRestart').onclick=()=>{ posSlide=0; renderPosition(); };
+  document.getElementById('posNewProb').onclick=()=>newProblemPosition();
+  document.getElementById('posPrevProb').onclick=()=>restorePreviousProblemPosition();
+}
+
+function bindMapClicks(containerId, slide, rerender){
+  const practiceAnswerShowing = containerId==='pracMap' && getPracticeRenderContext(slide).showAnswer;
+  if(slide.showAnswer || slide.judged || practiceAnswerShowing){
+    document.querySelectorAll('#'+containerId+' [data-opt], #'+containerId+' [data-pos-opt], #'+containerId+' [data-marker-opt], #'+containerId+' [data-vh-safe-opt]').forEach(el=>{
+      el.style.pointerEvents='none';
+      el.style.cursor='default';
+    });
+    return;
+  }
+  document.querySelectorAll('#'+containerId+' [data-opt]').forEach(el=>el.onclick=()=>{ slide.selected=el.dataset.opt; rerender(); });
+  document.querySelectorAll('#'+containerId+' [data-pos-opt]').forEach(el=>el.onclick=()=>{ slide.selectedPos=el.dataset.posOpt; rerender(); });
+  document.querySelectorAll('#'+containerId+' [data-marker-opt]').forEach(el=>el.onclick=()=>{ slide.selectedMarker=el.dataset.markerOpt; rerender(); });
+  document.querySelectorAll('#'+containerId+' [data-vh-safe-opt]').forEach(el=>el.onclick=()=>{ slide.selectedVhSafe=el.dataset.vhSafeOpt; rerender(); });
+}
+
+function slideDuration(i){ return PRACTICE_PLAN.find(p=>p.slide===i)?.duration || 5; }
+function startPractice(){
+  if(practiceRunning) return;
+  if(practiceMode==='single' && practiceStarted && practiceRemain<=0 && practiceStep<PRACTICE_PLAN.length-1){
+    practiceStep++;
+    practiceSlide=getPracticeSlideIndex();
+    practiceRemain=getPracticeSpec().duration;
+    practiceLastRenderKey='';
+  }
+  practicePaused=false;
+  if(!practiceStarted && practiceCountdown<=0){ practiceCountdown=3; practiceLastRenderKey=''; practiceRunning=true; practiceFrame=requestAnimationFrame(practiceTick); renderPractice(); return; }
+  practiceRunning=true;
+  practiceLastRenderKey='';
+  const dur=getPracticeSpec().duration;
+  practiceSlideStartedAt=performance.now()-(dur-practiceRemain)*1000;
+  practiceFrame=requestAnimationFrame(practiceTick);
+  renderPractice();
+}
+function practiceTick(now){
+  if(!practiceRunning) return;
+  if(practiceCountdown>0){
+    if(!practiceSlideStartedAt) practiceSlideStartedAt=now;
+    const cdElapsed=(now-practiceSlideStartedAt)/1000;
+    const next=3-Math.floor(cdElapsed);
+    practiceCountdown=Math.max(0,next);
+    if(cdElapsed>=3){
+      practiceCountdown=0;
+      practiceStarted=true;
+      practiceSlideStartedAt=now;
+      practiceRemain=getPracticeSpec().duration;
+      practiceLastRenderKey='';
+    }
+    const key=getPracticeRenderKey();
+    if(key!==practiceLastRenderKey){ practiceLastRenderKey=key; renderPractice(); }
+    else updatePracticeLight();
+    practiceFrame=requestAnimationFrame(practiceTick);
+    return;
+  }
+  const dur=getPracticeSpec().duration;
+  const elapsed=(now-practiceSlideStartedAt)/1000;
+  practiceRemain=Math.max(0,dur-elapsed);
+  const key=getPracticeRenderKey();
+  if(key!==practiceLastRenderKey){ practiceLastRenderKey=key; renderPractice(); }
+  else updatePracticeLight();
+  if(practiceRemain<=0){
+    addPracticeLogForStep(practiceStep);
+    if(practiceMode==='single'){
+      stopPractice();
+      practicePaused=false;
+      if(practiceStep>=PRACTICE_PLAN.length-1) showFinalPracticeLog();
+      else renderPractice();
+      return;
+    }
+    if(practiceStep<PRACTICE_PLAN.length-1){
+      practiceStep++;
+      practiceSlide=getPracticeSlideIndex();
+      practiceRemain=getPracticeSpec().duration;
+      practiceSlideStartedAt=now;
+      practiceLastRenderKey='';
+      renderPractice();
+      practiceFrame=requestAnimationFrame(practiceTick);
+    }else{
+      stopPractice();
+      practiceRemain=getPracticeSpec().duration;
+      updatePracticeTimer();
+      showFinalPracticeLog();
+    }
+    return;
+  }
+  practiceFrame=requestAnimationFrame(practiceTick);
+}
+function stopPractice(){ practiceRunning=false; practicePaused=true; clearInterval(practiceTimer); practiceTimer=null; if(practiceFrame){ cancelAnimationFrame(practiceFrame); practiceFrame=null; } }
+function updatePracticeTimer(){
+  const el=document.getElementById('pracTimerBar');
+  if(el){
+    const spec=getPracticeSpec();
+    const answerTime=spec.answer||0;
+    const selectable=Math.max(0.001, spec.duration-answerTime);
+    const selectableRemain=Math.max(0, practiceRemain-answerTime);
+    el.style.width=Math.max(0,Math.min(100,selectableRemain/selectable*100))+'%';
+  }
+}
+function updatePartyPanel(){ const panel=document.getElementById('partyPanel'); if(!panel) return; panel.classList.remove('hidden'); }
+function getPracticeRenderKey(){
+  const spec=getPracticeSpec();
+  const ctx=getPracticeRenderContext(currentProblem.slides[SLIDES[getPracticeSlideIndex()].id]);
+  return [practiceStep, getPracticeSlideIndex(), practiceCountdown, practiceRunning?'run':'stop', practicePaused?'paused':'live', ctx.hideHand?'hidehand':'hand', ctx.showAnswer?'ans':'noans', ctx.showPrepMarkerChoices?'choices':'nochoices', shouldShowPracticeParty()?'party':'roleonly'].join('|');
+}
+function updatePracticeLight(){
+  updatePracticeTimer();
+  const badge=document.getElementById('pracCenterBtn');
+  if(badge && practiceCountdown>0) badge.textContent=String(practiceCountdown);
+  const pause=document.getElementById('pracPause');
+  if(pause) pause.textContent=practiceRunning?'一時停止':(practicePaused?'再開':'一時停止');
+}
+function renderPractice(){
+  if(practiceRemain<=0) practiceRemain=getPracticeSpec().duration;
+  practiceSlide=getPracticeSlideIndex();
+  const slideMeta=SLIDES[practiceSlide]; const slide=currentProblem.slides[slideMeta.id];
+  const centerLabel=practiceCountdown>0 ? String(practiceCountdown) : (!practiceRunning && !practiceStarted ? 'スタート' : (!practiceRunning && practicePaused ? '再開' : ''));
+  const centerClass=practiceCountdown>0 ? 'practiceBadge small' : 'practiceBadge start';
+  const overlay=centerLabel?`<div class="practiceOverlay"><button class="${centerClass}" id="pracCenterBtn">${centerLabel}</button></div>`:'';
+  document.getElementById('practice').innerHTML=`
+    <div class="row"><button class="smallbtn primary" id="pracStart">スタート</button><button class="smallbtn" id="pracPause">${practiceRunning?'一時停止':(practicePaused?'再開':'一時停止')}</button><label><b>モード：</b><select id="practiceModeSelect"><option value="continuous" ${practiceMode==='continuous'?'selected':''}>連続</option><option value="single" ${practiceMode==='single'?'selected':''}>一問ごと</option></select></label><button class="smallbtn" id="pracPrev">前へ</button><button class="smallbtn" id="pracJudge">判定</button><button class="smallbtn" id="pracNext">次へ</button><button class="smallbtn" id="pracShow">正解を表示</button><button class="smallbtn" id="pracRestart">最初から</button><button class="smallbtn" id="pracNewProb">新しい問題</button><button class="smallbtn" id="pracPrevProb">一つ前の問題</button></div>
+    <div style="margin:10px 0" class="timer"><div id="pracTimerBar"></div></div>
+    <div class="slideTop"><button class="smallbtn" id="pracMiniPrev">＜</button><span class="slideNo">${practiceSlide+1}/${SLIDES.length}</span><button class="smallbtn" id="pracMiniNext">＞</button></div>
+    <div class="mapwrap"><div><div class="practiceMapWrap" id="pracMapWrap"><div id="pracMap">${renderMapFor(slide,'practice')}</div>${overlay}${practiceShowFinalLog?renderPracticeLog(true):''}</div>${renderPracticeLog()}</div><div><div class="eventTitle">${slideMeta.title}</div><div class="result">${slide.judged ? (isSlideCorrect(slide, getPracticeRenderContext(slide))?'<span class="ok">正解！</span>':'<span class="bad">不正解</span>') : ''}</div>${slide.showAnswer?`<div class="note">${answerTextForSlide(slide)}</div>`:''}</div></div>`;
+  bindMapClicks('pracMap', slide, renderPractice);
+  const startFn=()=>{ if(practiceRunning) return; if(practicePaused || practiceStarted) startPractice(); else { practiceStarted=false; practicePaused=false; practiceCountdown=3; practiceSlideStartedAt=0; practiceLastRenderKey=''; practiceRunning=true; practiceFrame=requestAnimationFrame(practiceTick); renderPractice(); } };
+  document.getElementById('pracStart').onclick=startFn;
+  document.getElementById('pracPause').onclick=()=>{ if(practiceRunning){ stopPractice(); renderPractice(); } else startPractice(); };
+  document.getElementById('practiceModeSelect').onchange=e=>{ practiceMode=e.target.value; };
+  if(document.getElementById('pracCenterBtn')) document.getElementById('pracCenterBtn').onclick=startFn;
+  document.getElementById('pracPrev').onclick=()=>{ stopPractice(); practiceStep=Math.max(0,practiceStep-1); practiceSlide=getPracticeSlideIndex(); practiceRemain=getPracticeSpec().duration; practiceStarted=true; practiceCountdown=0; practiceShowFinalLog=false; practiceLastRenderKey=''; renderPractice(); };
+  document.getElementById('pracMiniPrev').onclick=()=>{ stopPractice(); practiceStep=Math.max(0,practiceStep-1); practiceSlide=getPracticeSlideIndex(); practiceRemain=getPracticeSpec().duration; practiceStarted=true; practiceCountdown=0; practiceShowFinalLog=false; practiceLastRenderKey=''; renderPractice(); };
+  document.getElementById('pracNext').onclick=()=>{ stopPractice(); practiceStep=Math.min(PRACTICE_PLAN.length-1,practiceStep+1); practiceSlide=getPracticeSlideIndex(); practiceRemain=getPracticeSpec().duration; practiceStarted=true; practiceCountdown=0; practiceShowFinalLog=false; practiceLastRenderKey=''; renderPractice(); };
+  document.getElementById('pracMiniNext').onclick=()=>{ stopPractice(); practiceStep=Math.min(PRACTICE_PLAN.length-1,practiceStep+1); practiceSlide=getPracticeSlideIndex(); practiceRemain=getPracticeSpec().duration; practiceStarted=true; practiceCountdown=0; practiceShowFinalLog=false; practiceLastRenderKey=''; renderPractice(); };
+  document.getElementById('pracJudge').onclick=()=>{ judgeSlide(slide); addPracticeLogForStep(practiceStep); renderPractice(); };
+  document.getElementById('pracShow').onclick=()=>{ slide.showAnswer=true; slide.judged=true; addPracticeLogForStep(practiceStep); renderPractice(); };
+  document.getElementById('pracRestart').onclick=()=>{ stopPractice(); practiceStep=0; practiceSlide=0; practiceRemain=getPracticeSpec().duration; practiceStarted=false; practiceCountdown=0; practicePaused=false; practiceLastRenderKey=''; resetPracticeLog(); renderPractice(); };
+  document.getElementById('pracNewProb').onclick=()=>newProblemPractice();
+  document.getElementById('pracPrevProb').onclick=()=>restorePreviousProblemPractice();
+  updatePracticeTimer(); renderCards(); updatePartyPanel();
+}
+
+function renderAll(){
+  populateSelfSelect();
+  renderCards();
+  renderLearn();
+  renderPosition();
+  renderPractice();
+  updatePartyPanel();
+}
+
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active')); b.classList.add('active'); document.querySelectorAll('.tabPage').forEach(p=>p.classList.add('hidden')); document.getElementById(b.dataset.tab).classList.remove('hidden'); renderCards(); updatePartyPanel(); });
+document.getElementById('newProblemTop').onclick=()=>{ const keep=posSlide; newProblemPosition(); posSlide=keep; renderAll(); };
+document.getElementById('prevProblemTop').onclick=()=>{ const keep=posSlide; restorePreviousProblemPosition(); posSlide=keep; renderAll(); };
+newProblem();
+</script>
+</body>
+</html>
