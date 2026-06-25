@@ -13,7 +13,7 @@
 </style>
 </head>
 <body>
-<header><h1>P3後半 ブラックホール練習</h1><div class="sub">Poikos式 / ギミック理解＋位置確認＋実践練習 / 25枚構成</div>
+<header><h1>P3後半 ブラックホール練習</h1><div class="sub">Poikos式 / ヤーン式 / ギミック理解＋位置確認＋実践練習 / 25枚構成</div>
   <div class="headerLinks">
     <a class="smallbtn" href="https://github.com/pilsnerdrinker/practice-blackhole#readme" target="_blank" rel="noopener">使い方・仕様（README）を見る</a>
     <span>他の練習ページ：<a class="plainLink" href="https://pilsnerdrinker.github.io/raidshelf/" target="_blank" rel="noopener">raidshelf</a></span>
@@ -30,7 +30,7 @@
         <select id="selfRoleSelect"></select>
       </label>
       <label><b>方式：</b>
-        <select id="strat"><option>Poikos式</option></select>
+        <select id="strat"><option>Poikos式</option><option>ヤーン式</option></select>
       </label>
       <button class="smallbtn" id="newProblemTop">新しい問題</button>
       <button class="smallbtn" id="prevProblemTop">一つ前の問題</button>
@@ -94,6 +94,7 @@ function buildCandidates(){
 const ALL_CANDIDATES=buildCandidates();
 
 let selfRole='MT';
+let currentStrat='Poikos式';
 let currentProblem=null;
 let previousProblem=null;
 let posSlide=0;
@@ -146,6 +147,17 @@ function populateSelfSelect(){
   const sel=document.getElementById('selfRoleSelect');
   sel.innerHTML=ROLES.map(r=>`<option ${r===selfRole?'selected':''}>${r}</option>`).join('');
   sel.onchange=e=>{ selfRole=e.target.value; renderAll(); };
+}
+
+function populateStratSelect(){
+  const sel=document.getElementById('strat');
+  if(!sel) return;
+  sel.innerHTML=['Poikos式','ヤーン式'].map(s=>`<option ${s===currentStrat?'selected':''}>${s}</option>`).join('');
+  sel.onchange=e=>{ currentStrat=e.target.value; renderAll(); };
+}
+function getSplitGroups(){
+  if(currentStrat==='ヤーン式') return {chaos:['ST','H2','D1','D2'], ex:['MT','H1','D3','D4']};
+  return {chaos:['MT','H2','D1','D2'], ex:['ST','H1','D3','D4']};
 }
 
 function genParty(){
@@ -887,8 +899,8 @@ function getCorrectChoiceForRole(slide, role){
   const party=currentProblem.party.find(p=>p.role===role);
   const kind=ROLE_KIND[role];
   if(slide.kind==='prep-tank') return kind==='T' ? 'exTank' : 'hdWait';
-  if(slide.kind==='prep-split') return ['MT','H2','D1','D2'].includes(role) ? 'chaosGroup' : 'exGroup';
-  if(slide.kind==='prep-marker') return role==='MT' ? 'markerTankNorth' : 'markerPartySouth';
+  if(slide.kind==='prep-split') return getSplitGroups().chaos.includes(role) ? 'chaosGroup' : 'exGroup';
+  if(slide.kind==='prep-marker') return kind==='T' ? 'markerTankNorth' : 'markerPartySouth';
   if(slide.kind==='beam' && slide.beam===10) return party.marker==='禁止2' ? (slide.answerMap[party.marker] || 'wait') : 'other10';
   if(slide.kind==='beam') return slide.answerMap[party.marker] || 'wait';
   if(slide.kind==='binta-start'){
@@ -906,8 +918,8 @@ function getCorrectChoiceForRole(slide, role){
     if(bintaActionFromHand(slide.hand)==='頭割り') return 'stack'+side;
     return side + kind;
   }
-  if(slide.kind==='thunder1') return role==='ST' ? 'tankNear' : 'wait';
-  if(slide.kind==='thunder2') return role==='MT' ? 'tankNear' : 'wait';
+  if(slide.kind==='thunder1') return kind==='T' ? 'tankNear' : 'wait';
+  if(slide.kind==='thunder2') return kind==='T' ? 'tankNear' : 'wait';
   if(slide.kind==='dumming-bokuchin') return 'wait';
   if(slide.kind==='whitehole' || slide.kind==='blizzaga') return 'center';
   if(slide.kind==='jitanda-prep') return 'pair'+pairSlotForRole(role);
@@ -1038,12 +1050,13 @@ function renderMapFor(slide, mode){
   }
 
   if(slide.kind==='prep-split'){
+    const splitGroups=getSplitGroups();
     if(!showAnswer) overlays += `<rect class="castBox" x="236" y="44" width="128" height="34" rx="10"></rect><text class="vhLabel" x="300" y="68" text-anchor="middle">決戦2</text>`;
     options += ring('chaosGroup',300,340,20,'カ');
     options += ring('exGroup',300,190,20,'エ');
     if(showAnswer){
-      overlays += `<text x="300" y="315" text-anchor="middle" fill="#ffe680" font-size="12" font-weight="800">MT/H2/D1/D2</text>`;
-      overlays += `<text x="300" y="165" text-anchor="middle" fill="#ffe680" font-size="12" font-weight="800">ST/H1/D3/D4</text>`;
+      overlays += `<text x="300" y="315" text-anchor="middle" fill="#ffe680" font-size="12" font-weight="800">${splitGroups.chaos.join('/')}</text>`;
+      overlays += `<text x="300" y="165" text-anchor="middle" fill="#ffe680" font-size="12" font-weight="800">${splitGroups.ex.join('/')}</text>`;
     }
   }
 
@@ -1274,14 +1287,14 @@ function vhCastOverlay(facingAngle, kind){
 function answerTextForSlide(slide){
   const me=getSelfParty();
   if(slide.kind==='prep-tank') return `位置確認では、MT/ST どちらもエクスデス内北寄りを正解扱いにしています。実践では1回目MT、2回目STが受けます。HDはカオス南側待機。`;
-  if(slide.kind==='prep-split') return `2ボス分担。カオス組は MT/H2/D1/D2、エクスデス組は ST/H1/D3/D4。`;
-  if(slide.kind==='prep-marker') return `エクスデスとカオスは中央で重なっています。MTはカオスのタゲサ内北寄り、それ以外はカオスのタゲサ外南寄り。青枠で自分のサイコロ${me.dice}を確認し、下の3択からつけるべきマーカー種類（${markerKind(me.marker)}）を選びます。`;
+  if(slide.kind==='prep-split'){ const splitGroups=getSplitGroups(); return `2ボス分担（${currentStrat}）。カオス組は ${splitGroups.chaos.join('/')}、エクスデス組は ${splitGroups.ex.join('/')}。`; }
+  if(slide.kind==='prep-marker') return `エクスデスとカオスは中央で重なっています。ここもサンダガが2回来るため、1回目はMT、2回目はSTがカオス内側で受けます。位置確認ではMT/STどちらもカオスのタゲサ内北寄りを正解扱いにしています。H/Dはカオスのタゲサ外南寄り。青枠で自分のサイコロ${me.dice}を確認し、下の3択からつけるべきマーカー種類（${markerKind(me.marker)}）を選びます。`;
   if(slide.kind==='beam' && slide.beam===10) return `ビーム10回目＋ぼくちん。ケフカは移動後の位置からぼくちん直線を出します。禁止2は他のビーム回と同じく担当ブラックホールを選び、それ以外はぼくちん直線の両側真ん中付近の安置（他）のどちらかを選びます。`;
-  if(slide.kind==='beam') return `更新Poikos資料対応：この回は ${slide.patternNo===1?'パターン1':'パターン2'}。外周3個＋中間4個＋内側4個の配置。${[1,2,9,10].includes(slide.beam)?'この組は出た玉が消えて次の線へ移動。':(slide.beam<=5?'3〜5回目は同じ外周3か所から出る。':'6〜8回目は同じ外周3か所から出る。')} あなた（${me.marker}）は ${slide.answerMap[me.marker] ? '担当ブラックホール' : '待機'} を選びます。`;
+  if(slide.kind==='beam') return `更新資料対応：この回は ${slide.patternNo===1?'パターン1':'パターン2'}。外周3個＋中間4個＋内側4個の配置。${[1,2,9,10].includes(slide.beam)?'この組は出た玉が消えて次の線へ移動。':(slide.beam<=5?'3〜5回目は同じ外周3か所から出る。':'6〜8回目は同じ外周3か所から出る。')} あなた（${me.marker}）は ${slide.answerMap[me.marker] ? '担当ブラックホール' : '待機'} を選びます。`;
   if(slide.kind==='binta-start') return `開始びんびんビンタ。ダミングはまだ来ない。${handLabel(slide.hand)}上げなので ${safeSideFromHand(slide.hand)}側で${bintaActionFromHand(slide.hand)}。`;
   if(slide.kind==='dumming-binta') return `先にダミングをよけ、その後ビンタの処理。フィールド中央から見て、ケフカが手を挙げていない側が安置です。${handLabel(slide.hand)}上げなら${dummingBintaVisualSide(slide.hand)}側で${dummingBintaAction(slide.hand)==='頭割り'?'集合':dummingBintaAction(slide.hand)}。`;
-  if(slide.kind==='thunder1') return `サンダガ。STがカオス内側の正解、MT/H/D はタゲサ外で待機。`;
-  if(slide.kind==='thunder2') return `サンダガ。MTがカオス内側の正解、ST/H/D はタゲサ外で待機。`;
+  if(slide.kind==='thunder1') return `サンダガが2回来ます。1回目はMT、2回目はSTがカオス内側で受けます。位置確認ではMT/STどちらもカオス内側を正解扱いにしています。H/Dはタゲサ外で待機。`;
+  if(slide.kind==='thunder2') return `サンダガが2回来ます。1回目はMT、2回目はSTがカオス内側で受けます。位置確認ではMT/STどちらもカオス内側を正解扱いにしています。H/Dはタゲサ外で待機。`;
   if(slide.kind==='dumming-bokuchin') return `ケフカはここで移動。ダミング半面とぼくちん直線の両方を避けた左右の安置を使います。左右どちらかの待機位置を選びます。`;
   if(slide.kind==='whitehole') return `ホワイトホール。中央で詠唱を確認し、HPを満タンにします。`;
   if(slide.kind==='vh-binta') return `${slide.vh==='vertical'?'ヴァーティカル':'ホリゾンタル'}を確認。1回目は水色扇の安置ならOK。2回目は ${handLabel(slide.hand)}上げに対応し、中央からケフカを見て${safeSideFromHand(slide.hand)}側で${bintaActionFromHand(slide.hand)}（右手なら全員、左手ならロール散会）を選びます。両方正解で正解扱いです。`;
@@ -1490,6 +1503,7 @@ function renderPractice(){
 
 function renderAll(){
   populateSelfSelect();
+  populateStratSelect();
   renderCards();
   renderLearn();
   renderPosition();
