@@ -339,18 +339,21 @@ const PRACTICE_PLAN=[
   {slide:0,duration:4,answer:0.8,key:'prepTankMT'},
   {slide:0,duration:2,answer:0.8,key:'prepTankST'},
   {slide:1,duration:4,answer:1},
-  {slide:2,duration:7,answer:1,key:'prepMarkerPos'},
-  {slide:2,duration:11,answer:1,key:'prepMarkerDice',revealAfter:6},
+  {slide:2,duration:4,answer:0.8,key:'prepMarkerMT'},
+  {slide:2,duration:2,answer:0.8,key:'prepMarkerST'},
+  {slide:2,duration:8,answer:1,key:'prepMarkerDice',revealAfter:3},
   {slide:3,duration:7,answer:1,hideHandUntil:2},
   {slide:4,duration:5,answer:1},
   {slide:5,duration:5,answer:1,hideHandUntil:2},
-  {slide:6,duration:3,answer:1},
+  {slide:6,duration:4,answer:0.8,key:'thunder1MT'},
+  {slide:6,duration:2,answer:0.8,key:'thunder1ST'},
   {slide:7,duration:5,answer:1},
   {slide:8,duration:4,answer:1},
   {slide:9,duration:4,answer:1},
   {slide:10,duration:4,answer:1},
   {slide:11,duration:3,answer:1,key:'bokuchinWaitOnly'},
-  {slide:12,duration:4,answer:1},
+  {slide:12,duration:4,answer:0.8,key:'thunder2MT'},
+  {slide:12,duration:2,answer:0.8,key:'thunder2ST'},
   {slide:13,duration:5,answer:1},
   {slide:14,duration:4,answer:1},
   {slide:15,duration:4,answer:1},
@@ -384,6 +387,8 @@ function getPracticeRenderContext(slide){
     showPrepMarkerChoices:!(spec.key==='prepMarkerDice') || elapsed>=(spec.revealAfter||0),
     singleVhFirst:spec.key==='vhFirstOne',
     prepTankRole:spec.key==='prepTankMT'?'MT':spec.key==='prepTankST'?'ST':null,
+    prepMarkerRole:spec.key==='prepMarkerMT'?'MT':spec.key==='prepMarkerST'?'ST':null,
+    thunderRole:spec.key==='thunder1MT'?'MT':spec.key==='thunder1ST'?'ST':spec.key==='thunder2MT'?'MT':spec.key==='thunder2ST'?'ST':null,
     waitOnly:spec.key==='bokuchinWaitOnly',
     showHeadsplitBox:spec.key==='jitandaPrep'
   };
@@ -391,6 +396,8 @@ function getPracticeRenderContext(slide){
 function getRenderedCorrectChoiceForRole(slide, role, ctx){
   if(!ctx) return getCorrectChoiceForRole(slide, role);
   if(slide.kind==='prep-tank' && ctx.prepTankRole) return role===ctx.prepTankRole ? 'exTank' : 'hdWait';
+  if(slide.kind==='prep-marker' && ctx.prepMarkerRole) return role===ctx.prepMarkerRole ? 'markerTankNorth' : 'markerPartySouth';
+  if((slide.kind==='thunder1' || slide.kind==='thunder2') && ctx.thunderRole) return role===ctx.thunderRole ? 'tankNear' : 'wait';
   if(slide.kind==='dumming-bokuchin' && ctx.waitOnly) return 'wait';
   return getCorrectChoiceForRole(slide, role);
 }
@@ -404,6 +411,10 @@ function resetPracticeLog(){ practiceLog=[]; practiceLoggedSteps={}; practiceSho
 function getPracticePhaseLabel(spec){
   if(spec.key==='prepTankMT') return '1回目サンダガ';
   if(spec.key==='prepTankST') return '2回目サンダガ';
+  if(spec.key==='prepMarkerMT') return '1回目サンダガ';
+  if(spec.key==='prepMarkerST') return '2回目サンダガ';
+  if(spec.key==='thunder1MT' || spec.key==='thunder2MT') return '1回目サンダガ';
+  if(spec.key==='thunder1ST' || spec.key==='thunder2ST') return '2回目サンダガ';
   if(spec.key==='prepMarkerPos') return '強攻撃';
   if(spec.key==='prepMarkerDice') return 'サイコロ';
   if(spec.key==='vhFirstOne') return '1回目ヴァ/ホリ安置';
@@ -1057,12 +1068,13 @@ function renderMapFor(slide, mode){
       const cls=['markerChoiceRect', selected?'selected':'', correct?'correct':'', wrong?'wrong':''].filter(Boolean).join(' ');
       return `<g data-marker-opt="${id}"><rect class="${cls}" x="${x-w/2}" y="${y-h/2}" width="${w}" height="${h}" rx="8"></rect><text class="markerChoiceText" x="${x}" y="${y+1}" text-anchor="middle">${label}</text></g>`;
     }
-    const isMarkerPosPhase = !practiceCtx || practiceCtx.key==='prepMarkerPos';
+    const isMarkerPosPhase = !practiceCtx || ['prepMarkerPos','prepMarkerMT','prepMarkerST'].includes(practiceCtx.key);
     const showPosChoice = isMarkerPosPhase;
     const showMarkerChoice = !practiceCtx || (practiceCtx.key==='prepMarkerDice' && practiceCtx.showPrepMarkerChoices);
+    const tankLabel = practiceCtx && practiceCtx.prepMarkerRole ? practiceCtx.prepMarkerRole : 'MT';
     overlays += `<rect class="castBox" x="236" y="44" width="128" height="34" rx="10"></rect><text class="vhLabel" x="300" y="68" text-anchor="middle">サンダガ</text>`;
     if(showMarkerChoice) overlays += `<rect class="markerSelfBox" x="220" y="450" width="160" height="34" rx="10"></rect><text class="markerSelfText" x="300" y="468" text-anchor="middle">自分：サイコロ${me.dice}</text>`;
-    if(showPosChoice) options += posRing('markerTankNorth',300,246,18,'MT');
+    if(showPosChoice) options += posRing('markerTankNorth',300,246,18,tankLabel);
     if(showPosChoice) options += posRing('markerPartySouth',300,394,18,'他');
     if(showMarkerChoice) options += markerButton('攻撃',202,528,74,34,'攻撃') + markerButton('バインド',300,528,86,34,'バインド') + markerButton('禁止',402,528,74,34,'禁止');
   }
@@ -1109,10 +1121,12 @@ function renderMapFor(slide, mode){
   }
 
   if(slide.kind==='thunder1'){
-    options += ring('tankNear',300+layout.ukx*55,300+layout.uky*55,18,'ST') + ring('wait',300-layout.ukx*120,300-layout.uky*120,18,'待機');
+    const tankLabel=(practiceCtx&&practiceCtx.thunderRole)?practiceCtx.thunderRole:'T';
+    options += ring('tankNear',300+layout.ukx*55,300+layout.uky*55,18,tankLabel) + ring('wait',300-layout.ukx*120,300-layout.uky*120,18,'待機');
   }
   if(slide.kind==='thunder2'){
-    options += ring('tankNear',300+layout.ukx*55,300+layout.uky*55,18,'MT') + ring('wait',300-layout.ukx*120,300-layout.uky*120,18,'待機');
+    const tankLabel=(practiceCtx&&practiceCtx.thunderRole)?practiceCtx.thunderRole:'T';
+    options += ring('tankNear',300+layout.ukx*55,300+layout.uky*55,18,tankLabel) + ring('wait',300-layout.ukx*120,300-layout.uky*120,18,'待機');
   }
 
   if(slide.kind==='dumming-bokuchin'){
@@ -1282,7 +1296,7 @@ function answerTextForSlide(slide){
 function isSlideCorrect(slide, ctx=null){
   const correctChoice = getRenderedCorrectChoiceForSlide(slide, ctx);
   if(slide.kind==='prep-marker'){
-    if(ctx && ctx.key==='prepMarkerPos') return slide.selectedPos===correctChoice;
+    if(ctx && (ctx.key==='prepMarkerPos' || ctx.key==='prepMarkerMT' || ctx.key==='prepMarkerST')) return slide.selectedPos===correctChoice;
     if(ctx && ctx.key==='prepMarkerDice') return slide.selectedMarker===getCorrectMarkerChoiceForSlide(slide);
     return slide.selectedPos===correctChoice && slide.selectedMarker===getCorrectMarkerChoiceForSlide(slide);
   }
