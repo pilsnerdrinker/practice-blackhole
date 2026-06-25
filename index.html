@@ -1008,8 +1008,9 @@ function vhSectorPath(angle){
 function renderMapFor(slide, mode){
   const practiceCtx = mode==='practice' ? getPracticeRenderContext(slide) : null;
   const showAnswer=!!slide.showAnswer || !!(practiceCtx && practiceCtx.showAnswer);
-  const selfCorrect=getRenderedCorrectChoiceForSlide(slide, practiceCtx);
-  const allCorrect=getRenderedAllCorrectChoices(slide, practiceCtx);
+  const suppressBintaAnswer = slide.kind==='vh-binta' && practiceCtx && practiceCtx.key==='vhFirstOne';
+  const selfCorrect=suppressBintaAnswer ? null : getRenderedCorrectChoiceForSlide(slide, practiceCtx);
+  const allCorrect=suppressBintaAnswer ? [] : getRenderedAllCorrectChoices(slide, practiceCtx);
   const kef=coord(slide.kefka.angle,1.07);
   const chaosFacing=(slide.kind==='dumming-binta'||slide.kind==='dumming-bokuchin')?slide.kefka.angle:(slide.kind==='vh-binta'?slide.kefka.angle+45:0);
   const faceEnd=coord(chaosFacing,0.22);
@@ -1175,7 +1176,8 @@ function renderMapFor(slide, mode){
       }).join('');
     }
     overlays += vhCastOverlay(chaosFacing, slide.vh);
-    overlays += vhBintaAnswerFanPaths(slide, showHazard);
+    const showBintaAnswer = showHazard && !(practiceCtx && practiceCtx.key==='vhFirstOne');
+    overlays += vhBintaAnswerFanPaths(slide, showBintaAnswer);
     options += roleSet(layout.L)+roleSet(layout.R);
   }
 
