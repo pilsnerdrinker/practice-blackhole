@@ -34,6 +34,9 @@
       </label>
       <button class="smallbtn" id="newProblemTop">新しい問題</button>
       <button class="smallbtn" id="prevProblemTop">一つ前の問題</button>
+      <span><b>マーカー：</b></span>
+      <button class="smallbtn markerSetBtn" data-marker-set="2341">2341</button>
+      <button class="smallbtn markerSetBtn" data-marker-set="1234">1234</button>
     </div>
   </section>
 
@@ -96,6 +99,7 @@ const ALL_CANDIDATES=buildCandidates();
 
 let selfRole='MT';
 let currentStrat='Poikos式';
+let markerSet='2341';
 let currentProblem=null;
 let previousProblem=null;
 let posSlide=0;
@@ -155,6 +159,12 @@ function populateStratSelect(){
   if(!sel) return;
   sel.innerHTML=['Poikos式','ヤーン式'].map(s=>`<option ${s===currentStrat?'selected':''}>${s}</option>`).join('');
   sel.onchange=e=>{ currentStrat=e.target.value; renderAll(); };
+}
+function updateMarkerSetButtons(){
+  document.querySelectorAll('.markerSetBtn').forEach(btn=>{
+    btn.classList.toggle('primary', btn.dataset.markerSet===markerSet);
+    btn.onclick=()=>{ markerSet=btn.dataset.markerSet; renderAll(); };
+  });
 }
 function getSplitGroups(){
   if(currentStrat==='ヤーン式') return {chaos:['ST','H2','D1','D2'], ex:['MT','H1','D3','D4']};
@@ -1037,7 +1047,9 @@ function renderMapFor(slide, mode){
   const chaosFacing=(slide.kind==='dumming-binta'||slide.kind==='dumming-bokuchin')?slide.kefka.angle:(slide.kind==='vh-binta'?slide.kefka.angle+45:0);
   const faceEnd=coord(chaosFacing,0.22);
   const colors={A:'#ff6767','1':'#ff6767','B':'#ffe66d','2':'#ffe66d','C':'#6ec5ff','3':'#6ec5ff','D':'#d29bff','4':'#d29bff'};
-  const markSpec=[['A',0],['1',45],['B',90],['2',135],['C',180],['3',225],['D',270],['4',315]];
+  const markSpec = markerSet==='2341'
+    ? [['A',0],['2',45],['B',90],['3',135],['C',180],['4',225],['D',270],['1',315]]
+    : [['A',0],['1',45],['B',90],['2',135],['C',180],['3',225],['D',270],['4',315]];
   const marks=markSpec.map(([t,a])=>{const c=coord(a,.77); return `<text class="marktxt" x="${c.x}" y="${c.y+6}" text-anchor="middle" fill="${colors[t]}">${t}</text>`;}).join('');
   const layout=getChoiceLayout(slide.kefka.angle, (slide.kind==='binta-start'||slide.kind==='vh-binta')?'half':'quarter');
   const showHazard = mode!=='practice' || showAnswer || slide.judged;
@@ -1529,6 +1541,7 @@ function renderPractice(){
 function renderAll(){
   populateSelfSelect();
   populateStratSelect();
+  updateMarkerSetButtons();
   renderCards();
   renderLearn();
   renderPosition();
